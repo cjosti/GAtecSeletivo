@@ -205,6 +205,24 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GAtec.Seletivo.Business\GAtec.Seletivo.Business.csproj">
+      <Project>{f631f1db-cc86-4ca9-bf75-8966fad722ec}</Project>
+      <Name>GAtec.Seletivo.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GAtec.Seletivo.Data\GAtec.Seletivo.Data.csproj">
+      <Project>{b5067fd6-aec5-4561-872c-db3ba9d7c4b9}</Project>
+      <Name>GAtec.Seletivo.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GAtec.Seletivo.Domain\GAtec.Seletivo.Domain.csproj">
+      <Project>{d6e63cba-8f9d-476b-8d38-ae610f5411e5}</Project>
+      <Name>GAtec.Seletivo.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GAtec.Seletivo.Util\GAtec.Seletivo.Util.csproj">
+      <Project>{a2aa20cf-1a0d-4651-b011-9b67d3b479f2}</Project>
+      <Name>GAtec.Seletivo.Util</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
