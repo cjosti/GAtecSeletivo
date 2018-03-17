@@ -16,6 +16,6 @@ namespace GAtec.Seletivo.Domain.Model
 
         public DateTime data { get; set; }
 
-        public List<User> users { get; set; }
+        public IList<User> users { get; set; }
     }
 }

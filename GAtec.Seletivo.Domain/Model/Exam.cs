@@ -14,6 +14,6 @@ namespace GAtec.Seletivo.Domain.Model
 
         public bool active { get; set; }
 
-        public List<Question> questions { get; set; }
+        public IList<Question> questions { get; set; }
     }
 }

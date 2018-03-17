@@ -16,6 +16,6 @@ namespace GAtec.Seletivo.Domain.Model
 
         public int score { get; set; }
 
-        public List<Answer> answers { get; set; }
+        public IList<Answer> answers { get; set; }
     }
 }

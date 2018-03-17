@@ -18,6 +18,7 @@ namespace GAtec.Seletivo.Domain.Model
 
         public string password { get; set; }
 
-        public int typeId { get; set; }
+        public UserType type { get; set; }
+        
     }
 }
