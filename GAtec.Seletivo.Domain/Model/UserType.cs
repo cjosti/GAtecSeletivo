@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace GAtec.Seletivo.Domain.Model
 {
-    class UserType
+    public class UserType
     {
+        public int Type { get; set; }
+
         public static readonly byte Admin = 0;
         public static readonly byte Candidate = 1;
     }

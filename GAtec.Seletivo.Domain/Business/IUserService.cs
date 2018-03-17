@@ -7,7 +7,7 @@ using GAtec.Seletivo.Domain.Model;
 
 namespace GAtec.Seletivo.Domain.Business
 {
-    interface IUserService: IServiceBase
+    public interface IUserService: IServiceBase
     {
         bool Add(User user);
 
@@ -15,8 +15,8 @@ namespace GAtec.Seletivo.Domain.Business
 
         bool Delete(int id);
 
-        User GetUser(int id);
+        User Get(int id);
 
-        IEnumerable<User> GetUsers();
+        IEnumerable<User> GetAll();
     }
 }

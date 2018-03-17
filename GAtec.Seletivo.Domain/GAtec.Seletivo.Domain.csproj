@@ -63,9 +63,6 @@
     <Compile Include="Repository\IUserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\GAtec.Seletivo.Util\GAtec.Seletivo.Util.csproj">
       <Project>{a2aa20cf-1a0d-4651-b011-9b67d3b479f2}</Project>
       <Name>GAtec.Seletivo.Util</Name>

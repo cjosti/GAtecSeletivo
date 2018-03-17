@@ -7,7 +7,7 @@ using GAtec.Seletivo.Domain.Model;
 
 namespace GAtec.Seletivo.Domain.Business
 {
-    interface IExamService: IServiceBase
+    public interface IExamService: IServiceBase
     {
         bool Add(Exam exam);
 
@@ -15,8 +15,8 @@ namespace GAtec.Seletivo.Domain.Business
 
         bool Delete(int id);
 
-        Exam GetExam(int id);
+        Exam Get(int id);
 
-        IEnumerable<Exam> GetExams();
+        IEnumerable<Exam> GetAll();
     }
 }

@@ -7,16 +7,16 @@ using GAtec.Seletivo.Domain.Model;
 
 namespace GAtec.Seletivo.Domain.Business
 {
-    interface IQuestionService: IServiceBase
+    public interface IQuestionService: IServiceBase
     {
         bool Add(Question question);
 
         bool Update(Question question);
 
-        bool delete(int id);
+        bool Delete(int id);
 
-        Question GetQuestion(int id);
+        Question Get(int id);
 
-        IEnumerable<Question> GetQuestions();
+        IEnumerable<Question> GetAll();
     }
 }

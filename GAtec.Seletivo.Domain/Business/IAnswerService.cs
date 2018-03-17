@@ -7,7 +7,7 @@ using GAtec.Seletivo.Domain.Model;
 
 namespace GAtec.Seletivo.Domain.Business
 {
-    interface IAnswerService: IServiceBase
+    public interface IAnswerService: IServiceBase
     {
         bool Add(Answer answer);
 
@@ -15,8 +15,8 @@ namespace GAtec.Seletivo.Domain.Business
 
         bool Delete(int id);
 
-        Answer GetAnswer(int id);
+        Answer Get(int id);
 
-        IEnumerable<Answer> GetAnswers();
+        IEnumerable<Answer> GetAll();
     }
 }

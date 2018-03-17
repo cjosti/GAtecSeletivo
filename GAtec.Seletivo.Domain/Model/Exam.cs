@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace GAtec.Seletivo.Domain.Model
 {
-    class Exam
+    public class Exam
     {
-        public int id { get; set; }
+        public int Id { get; set; }
 
-        public string name { get; set; }
+        public string Name { get; set; }
 
-        public bool active { get; set; }
+        public bool Active { get; set; }
 
-        public IList<Question> questions { get; set; }
+        public IList<Question> Questions { get; set; }
     }
 }

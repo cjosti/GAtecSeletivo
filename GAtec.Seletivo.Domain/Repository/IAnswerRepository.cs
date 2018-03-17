@@ -7,7 +7,7 @@ using GAtec.Seletivo.Domain.Model;
 
 namespace GAtec.Seletivo.Domain.Repository
 {
-    interface IAnswerRepository: IBaseRepository<Answer>
+    public interface IAnswerRepository: IBaseRepository<Answer>
     {
     }
 }

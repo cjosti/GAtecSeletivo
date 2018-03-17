@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace GAtec.Seletivo.Domain.Repository
 {
-    interface IBaseRepository<T>
+    public interface IBaseRepository<T>
     {
-        void add(T item);
+        void Add(T item);
 
-        void update(T item);
+        void Update(T item);
 
-        void delete(object id);
+        void Delete(object id);
 
         T Get(object id);
 

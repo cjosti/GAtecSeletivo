@@ -7,7 +7,7 @@ using GAtec.Seletivo.Domain.Model;
 
 namespace GAtec.Seletivo.Domain.Repository
 {
-    interface IRecruitmentRepository: IBaseRepository<Recruitment>
+    public interface IRecruitmentRepository: IBaseRepository<Recruitment>
     {
     }
 }

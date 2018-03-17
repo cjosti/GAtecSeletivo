@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace GAtec.Seletivo.Domain.Model
 {
-    class Recruitment
+    public class Recruitment
     {
-        public int id { get; set; }
+        public int Id { get; set; }
 
-        public string name { get; set; }
+        public string Name { get; set; }
 
-        public string description { get; set; }
+        public string Description { get; set; }
 
-        public DateTime data { get; set; }
+        public DateTime Data { get; set; }
 
-        public IList<User> users { get; set; }
+        public IList<User> Users { get; set; }
     }
 }

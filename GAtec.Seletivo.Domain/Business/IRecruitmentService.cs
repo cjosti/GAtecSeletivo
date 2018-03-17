@@ -7,7 +7,7 @@ using GAtec.Seletivo.Domain.Model;
 
 namespace GAtec.Seletivo.Domain.Business
 {
-    interface IRecruitmentService: IServiceBase
+    public interface IRecruitmentService: IServiceBase
     {
         bool Add(Recruitment recruitment);
 
@@ -15,9 +15,9 @@ namespace GAtec.Seletivo.Domain.Business
 
         bool Delete(int id);
 
-        Recruitment GetRecruitment(int id);
+        Recruitment Get(int id);
 
-        IEnumerable<Recruitment> GetRecruitments();
+        IEnumerable<Recruitment> GetAll();
 
     }
 }

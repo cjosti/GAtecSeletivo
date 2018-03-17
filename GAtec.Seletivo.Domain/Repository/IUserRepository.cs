@@ -7,7 +7,7 @@ using GAtec.Seletivo.Domain.Model;
 
 namespace GAtec.Seletivo.Domain.Repository
 {
-    interface IUserRepository : IBaseRepository<User>
+    public interface IUserRepository : IBaseRepository<User>
     {
     }
 }
