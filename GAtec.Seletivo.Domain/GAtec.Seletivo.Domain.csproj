@@ -42,7 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\IAnswerService.cs" />
+    <Compile Include="Business\IExamService.cs" />
+    <Compile Include="Business\IQuestionService.cs" />
+    <Compile Include="Business\IRecruitmentService.cs" />
     <Compile Include="Business\IServiceBase.cs" />
+    <Compile Include="Business\IUserService.cs" />
     <Compile Include="Model\Answer.cs" />
     <Compile Include="Model\Exam.cs" />
     <Compile Include="Model\Question.cs" />
