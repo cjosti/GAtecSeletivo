@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace GAtec.Seletivo.Domain.Model
 {
+    public enum UserType
+    {
+        Admin = 0,
+        Candidate = 1
+    }
+
+
     public class User
     {
         public int Id { get; set; }
