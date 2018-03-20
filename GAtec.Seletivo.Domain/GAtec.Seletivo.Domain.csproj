@@ -36,7 +36,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,6 +55,8 @@
     <Compile Include="Business\IUserService.cs" />
     <Compile Include="Model\Answer.cs" />
     <Compile Include="Model\Exam.cs" />
+    <Compile Include="Model\Extended\LoginInfo.cs" />
+    <Compile Include="Model\Extended\RegisterInfo.cs" />
     <Compile Include="Model\Question.cs" />
     <Compile Include="Model\Recruitment.cs" />
     <Compile Include="Model\User.cs" />

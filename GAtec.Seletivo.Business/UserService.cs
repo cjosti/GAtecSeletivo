@@ -81,6 +81,11 @@ namespace GAtec.Seletivo.Business
 
                 return data;
             }
+
+            public bool existUser(string username)
+            {
+                return false;
+            }
         }
     }
 }

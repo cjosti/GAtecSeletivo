@@ -144,6 +144,20 @@ namespace GAtec.Seletivo.Data
             }
             return users;
         }
+
+        public bool ExistUser(string username)
+        {
+            using (var con = new SqlConnection(SeletivoSettings.connectionString))
+            {
+                con.Open();
+
+                using (var cmd = new SqlCommand("select 1 from GA_USER where", con))
+                {
+
+                }
+            }
+            return false;
+        }
     } 
         
 }
