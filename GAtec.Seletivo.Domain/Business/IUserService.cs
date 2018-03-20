@@ -15,8 +15,8 @@ namespace GAtec.Seletivo.Domain.Business
 
         bool Delete(int id);
 
-        User Get(int id);
+        User GetUser(int id);
 
-        IEnumerable<User> GetAll();
+        IEnumerable<User> GetUsers();
     }
 }
