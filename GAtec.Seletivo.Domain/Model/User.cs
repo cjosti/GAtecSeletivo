@@ -6,12 +6,7 @@ using System.Threading.Tasks;
 
 namespace GAtec.Seletivo.Domain.Model
 {
-    public enum UserType
-    {
-        Admin = 0,
-        Candidate = 1
-    }
-
+    public enum UserType { Admin = 0, Candidate = 1 }
 
     public class User
     {
@@ -25,7 +20,7 @@ namespace GAtec.Seletivo.Domain.Model
 
         public string Password { get; set; }
 
-        public UserType Type { get; set; }
-        
+        public UserType Type { get; set; }        
+
     }
 }

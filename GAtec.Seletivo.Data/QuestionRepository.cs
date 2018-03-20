@@ -6,44 +6,46 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using GAtec.Seletivo.Util.Settings;
-using GAtec.Seletivo.Domain.Repository;
 using GAtec.Seletivo.Domain.Model;
 
 namespace GAtec.Seletivo.Data
 {
-    class RecruitmentRepository: IRecruitmentRepository
+    class QuestionRepository
     {
-        public void Add(Recruitment item)
+        public void Add(Question item)
         {
             using (var con = new SqlConnection(SeletivoSettings.connectionString))
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("insert into GA_RECRUITMENT (Name, Description) " +
-                                                "values (@name, @description)", con))
-                {
-                    cmd.Parameters.Add("name", SqlDbType.NVarChar).Value = item.Name;
+                using (var cmd = new SqlCommand("insert into GA_QUESTION (Description, Type, Score) " +
+                                                "values (@description, @type, @score)", con))
+                {                    
                     cmd.Parameters.Add("description", SqlDbType.NVarChar).Value = item.Description;
-               
+                    cmd.Parameters.Add("type", SqlDbType.Int).Value = item.Type;
+                    cmd.Parameters.Add("score", SqlDbType.Int).Value = item.Score;
+
                     cmd.ExecuteNonQuery();
                 }
             }
 
         }
 
-        public void Update(Recruitment item)
+        public void Update(Question item)
         {
             using (var con = new SqlConnection(SeletivoSettings.connectionString))
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("update GA_RECRUITMENT set " +
-                                                "Name = @name, " +
-                                                "Description = @description" +
+                using (var cmd = new SqlCommand("update GA_QUESTION set " +
+                                                "Description = @description, " +
+                                                "Type = @type, " +
+                                                "Score = @score" +
                                                 "where Id = @id", con))
-                {
-                    cmd.Parameters.Add("name", SqlDbType.NVarChar).Value = item.Name;
+                {                   
                     cmd.Parameters.Add("description", SqlDbType.NVarChar).Value = item.Description;
+                    cmd.Parameters.Add("type", SqlDbType.Int).Value = item.Type;
+                    cmd.Parameters.Add("score", SqlDbType.Int).Value = item.Score;
                     cmd.Parameters.Add("id", SqlDbType.Int).Value = item.Id;
 
                     cmd.ExecuteNonQuery();
@@ -57,7 +59,7 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("delete from GA_RECRUITMENT where Id = @id", con))
+                using (var cmd = new SqlCommand("delete from GA_QUESTION where Id = @id", con))
                 {
                     cmd.Parameters.Add("id", SqlDbType.Int).Value = id;
                     cmd.ExecuteNonQuery();
@@ -65,15 +67,15 @@ namespace GAtec.Seletivo.Data
             }
         }
 
-        public Recruitment Get(object id)
+        public Question Get(object id)
         {
-            Recruitment recruitment = null;
+            Question question = null;
 
             using (var con = new SqlConnection(SeletivoSettings.connectionString))
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("select Id, Name, Description, Type from GA_RECRUITMENT where Id = @id", con))
+                using (var cmd = new SqlCommand("select Id, Description, Type, Score from GA_QUESTION where Id = @id", con))
                 {
                     cmd.Parameters.Add("id", SqlDbType.Int).Value = id;
 
@@ -81,12 +83,13 @@ namespace GAtec.Seletivo.Data
                     {
                         if (reader.Read())
                         {
-                            recruitment = new Recruitment
+                            question = new Question
                             {
 
                                 Id = reader.GetInt32(0),
-                                Name = reader["Name"].ToString(),
-                                Description = reader["Description"].ToString()
+                                Description = reader["Description"].ToString(),
+                                Type = reader.GetInt32(2),
+                                Score = reader.GetInt32(3)
                             };
 
                         }
@@ -95,40 +98,40 @@ namespace GAtec.Seletivo.Data
                 }
 
             }
-            return recruitment;
+            return question;
         }
 
-        public IEnumerable<Recruitment> GetAll()
+        public IEnumerable<Question> GetAll()
         {
-            var recruitments = new List<Recruitment>();
+            var questions = new List<Question>();
 
             using (var con = new SqlConnection(SeletivoSettings.connectionString))
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("select Id, Name, Description from GA_RECRUITMENT", con))
+                using (var cmd = new SqlCommand("select Id, Description, Type, Score from GA_QUESTION", con))
                 {
                     using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            var recruitment = new Recruitment
+                            var question = new Question
                             {
                                 Id = reader.GetInt32(0),
-                                Name = reader["Name"].ToString(),
-                                Description = reader["Description"].ToString()
+                                Description = reader["Description"].ToString(),
+                                Type = reader.GetInt32(2),
+                                Score = reader.GetInt32(3)
 
                             };
 
-                            recruitments.Add(recruitment);
+                            questions.Add(question);
                         }
 
                     }
                 }
 
             }
-            return recruitments;
+            return questions;
         }
     }
 }
-
