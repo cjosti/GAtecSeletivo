@@ -14,7 +14,8 @@ namespace GAtec.Seletivo.Domain.Model.Extended
         public string Username { get; set; }
 
         [Display(Name = "Password")]
-        //[Required(ErrorMessage = "The password is required.")]
+        [StringLength(20, ErrorMessage = "The length should be lower than 20.")]
         public string Password { get; set; }
+
     }
 }
