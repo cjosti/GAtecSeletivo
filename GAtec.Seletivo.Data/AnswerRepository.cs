@@ -18,12 +18,12 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("insert into GA_ANSWER(Description, QuestionId, RightAnswer) " +
-                                                "values (@description, @questionId, @rightAnswer)", con))
+                using (var cmd = new SqlCommand("INSERT INTO GA_ANSWER(DESCRIPTION, RIGHTANSWER, QUESTIONID) " +
+                                                "VALUES (@description, @questionId, @rightAnswer)", con))
                 {
-                    cmd.Parameters.Add("description", SqlDbType.NVarChar).Value = item.Description;
-                    cmd.Parameters.Add("questionId", SqlDbType.Int).Value = item.QuestionId;
+                    cmd.Parameters.Add("description", SqlDbType.NVarChar).Value = item.Description;                    
                     cmd.Parameters.Add("rightAnswer", SqlDbType.Int).Value = item.RightAnswer;
+                    cmd.Parameters.Add("questionId", SqlDbType.Int).Value = item.QuestionId;
 
                     cmd.ExecuteNonQuery();
                 }
@@ -37,15 +37,15 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("update GA_ANSWER set " +
-                                                "Description = @description, " +
-                                                "QuestionId = @questionId," +
-                                                "RightAnswer = @rightAnswer," +
-                                                "where Id = @id", con))
+                using (var cmd = new SqlCommand("UPDATE GA_ANSWER SET " +
+                                                "DESCRIPTION = @description, " +
+                                                "RIGTHANSWER = @rightAnswer," +
+                                                "QUESTIONID = @questionId," +
+                                                "WHERE ID = @id", con))
                 {
                     cmd.Parameters.Add("description", SqlDbType.NVarChar).Value = item.Description;
+                    cmd.Parameters.Add("rightAnswer", SqlDbType.Int).Value = item.RightAnswer;
                     cmd.Parameters.Add("questionId", SqlDbType.Int).Value = item.QuestionId;
-                    cmd.Parameters.Add("rightAnswer", SqlDbType.Int).Value = item.RightAnswer; 
                     cmd.Parameters.Add("id", SqlDbType.Int).Value = item.Id;
 
                     cmd.ExecuteNonQuery();
@@ -59,7 +59,7 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("delete from GA_ANSWER where Id = @id", con))
+                using (var cmd = new SqlCommand("DELETE FROM GA_ANSWER WHERE ID = @id", con))
                 {
                     cmd.Parameters.Add("id", SqlDbType.Int).Value = id;
                     cmd.ExecuteNonQuery();
@@ -75,7 +75,7 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("select Id, Description, QuestionId, RightAnswer from GA_ANSWER where Id = @id", con))
+                using (var cmd = new SqlCommand("SELECT ID, DESCRIPTION, RIGHTANSWER, QUESTIONID FROM GA_ANSWER WHERE ID = @id", con))
                 {
                     cmd.Parameters.Add("id", SqlDbType.Int).Value = id;
 
@@ -87,9 +87,9 @@ namespace GAtec.Seletivo.Data
                             {
 
                                 Id = reader.GetInt32(0),
-                                Description = reader["Description"].ToString(),
-                                QuestionId = reader.GetInt32(2),
-                                RightAnswer = reader.GetBoolean(3)
+                                Description = reader["Description"].ToString(),                                
+                                RightAnswer = reader.GetBoolean(2),
+                                QuestionId = reader.GetInt32(3),
                             };
 
                         }
@@ -109,7 +109,7 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("select Id, Description, QuestionId, RightAnswer from GA_ANSWER", con))
+                using (var cmd = new SqlCommand("SELECT ID, DESCRIPTION, RIGHTANSWER, QUESTIONID FROM GA_ANSWER", con))
                 {
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -119,8 +119,8 @@ namespace GAtec.Seletivo.Data
                             {
                                 Id = reader.GetInt32(0),
                                 Description = reader["Description"].ToString(),
-                                QuestionId = reader.GetInt32(2),
-                                RightAnswer = reader.GetBoolean(3)
+                                RightAnswer = reader.GetBoolean(2),
+                                QuestionId = reader.GetInt32(3)
 
                             };
 

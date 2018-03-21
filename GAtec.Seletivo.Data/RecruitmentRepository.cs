@@ -19,11 +19,11 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("insert into GA_RECRUITMENT (Name, Description) " +
-                                                "values (@name, @description)", con))
+                using (var cmd = new SqlCommand("INSERT INTO GA_RECRUITMENT (DESCRIPTION, DATE) " +
+                                                "VALUES (@description, @date)", con))
                 {
-                    cmd.Parameters.Add("name", SqlDbType.NVarChar).Value = item.Name;
-                    cmd.Parameters.Add("description", SqlDbType.NVarChar).Value = item.Description;
+                    cmd.Parameters.Add("description", SqlDbType.VarChar).Value = item.Description;
+                    cmd.Parameters.Add("date", SqlDbType.DateTime).Value = item.Date;
                
                     cmd.ExecuteNonQuery();
                 }
@@ -37,13 +37,13 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("update GA_RECRUITMENT set " +
-                                                "Name = @name, " +
-                                                "Description = @description" +
-                                                "where Id = @id", con))
+                using (var cmd = new SqlCommand("UPDATE GA_RECRUITMENT SET " +
+                                                "DESCRIPTION = @description, " +
+                                                "DATE = @date" +
+                                                "WHERE ID = @id", con))
                 {
-                    cmd.Parameters.Add("name", SqlDbType.NVarChar).Value = item.Name;
-                    cmd.Parameters.Add("description", SqlDbType.NVarChar).Value = item.Description;
+                    cmd.Parameters.Add("description", SqlDbType.VarChar).Value = item.Description;
+                    cmd.Parameters.Add("date", SqlDbType.DateTime).Value = item.Date;
                     cmd.Parameters.Add("id", SqlDbType.Int).Value = item.Id;
 
                     cmd.ExecuteNonQuery();
@@ -57,7 +57,7 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("delete from GA_RECRUITMENT where Id = @id", con))
+                using (var cmd = new SqlCommand("DELETE FROM GA_RECRUITMENT WHERE ID = @id", con))
                 {
                     cmd.Parameters.Add("id", SqlDbType.Int).Value = id;
                     cmd.ExecuteNonQuery();
@@ -73,7 +73,7 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("select Id, Name, Description, Type from GA_RECRUITMENT where Id = @id", con))
+                using (var cmd = new SqlCommand("SELECT ID, DESCRIPTION, DATE FROM GA_RECRUITMENT WHERE ID = @id", con))
                 {
                     cmd.Parameters.Add("id", SqlDbType.Int).Value = id;
 
@@ -85,8 +85,8 @@ namespace GAtec.Seletivo.Data
                             {
 
                                 Id = reader.GetInt32(0),
-                                Name = reader["Name"].ToString(),
-                                Description = reader["Description"].ToString()
+                                Description = reader["Description"].ToString(),
+                                Date = reader.GetDateTime(3)
                             };
 
                         }
@@ -106,7 +106,7 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("select Id, Name, Description from GA_RECRUITMENT", con))
+                using (var cmd = new SqlCommand("SELECT ID, DESCRIPTION, DATE FROM GA_RECRUITMENT", con))
                 {
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -115,8 +115,8 @@ namespace GAtec.Seletivo.Data
                             var recruitment = new Recruitment
                             {
                                 Id = reader.GetInt32(0),
-                                Name = reader["Name"].ToString(),
-                                Description = reader["Description"].ToString()
+                                Description = reader["Description"].ToString(),
+                                Date = reader.GetDateTime(3)
 
                             };
 

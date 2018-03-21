@@ -18,10 +18,10 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("insert into GA_QUESTION (Description, Type, Score) " +
-                                                "values (@description, @type, @score)", con))
+                using (var cmd = new SqlCommand("INSERT INTO GA_QUESTION (DESCRIPTION, TYPE, SCORE) " +
+                                                "VALUES (@description, @type, @score)", con))
                 {                    
-                    cmd.Parameters.Add("description", SqlDbType.NVarChar).Value = item.Description;
+                    cmd.Parameters.Add("description", SqlDbType.VarChar).Value = item.Description;
                     cmd.Parameters.Add("type", SqlDbType.Int).Value = item.Type;
                     cmd.Parameters.Add("score", SqlDbType.Int).Value = item.Score;
 
@@ -37,13 +37,13 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("update GA_QUESTION set " +
-                                                "Description = @description, " +
-                                                "Type = @type, " +
-                                                "Score = @score" +
-                                                "where Id = @id", con))
+                using (var cmd = new SqlCommand("UPDATE GA_QUESTION SET " +
+                                                "DESCRIPTION = @description, " +
+                                                "TYPE = @type, " +
+                                                "SCORE = @score" +
+                                                "WHERE ID = @id", con))
                 {                   
-                    cmd.Parameters.Add("description", SqlDbType.NVarChar).Value = item.Description;
+                    cmd.Parameters.Add("description", SqlDbType.VarChar).Value = item.Description;
                     cmd.Parameters.Add("type", SqlDbType.Int).Value = item.Type;
                     cmd.Parameters.Add("score", SqlDbType.Int).Value = item.Score;
                     cmd.Parameters.Add("id", SqlDbType.Int).Value = item.Id;
@@ -59,7 +59,7 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("delete from GA_QUESTION where Id = @id", con))
+                using (var cmd = new SqlCommand("DELETE FROM GA_QUESTION WHERE ID = @id", con))
                 {
                     cmd.Parameters.Add("id", SqlDbType.Int).Value = id;
                     cmd.ExecuteNonQuery();
@@ -75,7 +75,7 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("select Id, Description, Type, Score from GA_QUESTION where Id = @id", con))
+                using (var cmd = new SqlCommand("SELECT ID, DESCRIPTION, TYPE, SCORE FROM GA_QUESTION WHERE ID = @id", con))
                 {
                     cmd.Parameters.Add("id", SqlDbType.Int).Value = id;
 
@@ -109,7 +109,7 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("select Id, Description, Type, Score from GA_QUESTION", con))
+                using (var cmd = new SqlCommand("SELECT ID, DESCRIPTION, TYPE, SCORE FROM GA_QUESTION", con))
                 {
                     using (var reader = cmd.ExecuteReader())
                     {

@@ -20,12 +20,13 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("insert into GA_USER (Name, User, Email, Password, Type) " +
-                                                "values (@name, @user, @email, @password, @type)", con))
+                using (var cmd = new SqlCommand("INSERT INTO GA_USER (NAME, USERNAME, PASSWORD, EMAIL, CPF, TYPE)" +
+                                                "VALUES (@name, @userName, @email, @CPF, @password, @type)", con))
                 {
-                    cmd.Parameters.Add("name", SqlDbType.NVarChar).Value = item.Name;
-                    cmd.Parameters.Add("user", SqlDbType.NVarChar).Value = item.UserName;
-                    cmd.Parameters.Add("email", SqlDbType.NVarChar).Value = item.Email;
+                    cmd.Parameters.Add("name", SqlDbType.VarChar).Value = item.Name;
+                    cmd.Parameters.Add("userName", SqlDbType.VarChar).Value = item.UserName;
+                    cmd.Parameters.Add("email", SqlDbType.VarChar).Value = item.Email;
+                    cmd.Parameters.Add("CPF", SqlDbType.VarChar).Value = item.CPF;
                     cmd.Parameters.Add("password", SqlDbType.NVarChar).Value = item.Password;
                     cmd.Parameters.Add("type", SqlDbType.Int).Value = item.UserName;
 
@@ -41,18 +42,20 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("update GA_USER set " +
-                                                "Name = @name, " +
-                                                "User = @user," +
-                                                "Email = @email," +
-                                                "Password = @password," +
-                                                "Type = @type," +
-                                                "where Id = @id", con))
+                using (var cmd = new SqlCommand("UPDATE GA_USER SET " +
+                                                "NAME = @name, " +
+                                                "USERNAME = @userName," +
+                                                "EMAIL = @email," +
+                                                "PASSWORD = @password," +
+                                                "CPF = @CPF," +
+                                                "TYPE = @type," +
+                                                "WHERE ID = @id", con))
                 {
-                    cmd.Parameters.Add("name", SqlDbType.NVarChar).Value = item.Name;
-                    cmd.Parameters.Add("user", SqlDbType.NVarChar).Value = item.UserName;
-                    cmd.Parameters.Add("email", SqlDbType.NVarChar).Value = item.Email;
+                    cmd.Parameters.Add("name", SqlDbType.VarChar).Value = item.Name;
+                    cmd.Parameters.Add("userName", SqlDbType.VarChar).Value = item.UserName;
+                    cmd.Parameters.Add("email", SqlDbType.VarChar).Value = item.Email;
                     cmd.Parameters.Add("password", SqlDbType.NVarChar).Value = item.Password;
+                    cmd.Parameters.Add("CPF", SqlDbType.VarChar).Value = item.CPF;
                     cmd.Parameters.Add("type", SqlDbType.Int).Value = item.Type;
                     cmd.Parameters.Add("id", SqlDbType.Int).Value = item.Id;
 
@@ -67,7 +70,7 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("delete from GA_USER where Id = @id", con))
+                using (var cmd = new SqlCommand("DELETE FROM GA_USER WHERE ID = @id", con))
                 {
                     cmd.Parameters.Add("id", SqlDbType.Int).Value = id;
                     cmd.ExecuteNonQuery();
@@ -83,7 +86,7 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("select Id, Name, User, Email, Password, Type from GA_USER where Id = @id", con))
+                using (var cmd = new SqlCommand("SELECT ID, NAME, USER, EMAIL, PASSWORD, CPF, TYPE FROM GA_USER WHERE ID = @id", con))
                 {
                     cmd.Parameters.Add("id", SqlDbType.Int).Value = id;
 
@@ -99,6 +102,7 @@ namespace GAtec.Seletivo.Data
                                 UserName = reader["User"].ToString(),
                                 Email = reader["Email"].ToString(),
                                 Password = reader["Password"].ToString(),
+                                CPF = reader["CPF"].ToString(),
                                 Type = (UserType)reader["Type"]
                             };
 
@@ -119,7 +123,7 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("select Id, Name, User, Email, Password, Type from GA_USER", con))
+                using (var cmd = new SqlCommand("SELECT ID, NAME, USER, EMAIL, PASSWORD, CPF, TYPE FROM GA_USER", con))
                 {
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -131,6 +135,7 @@ namespace GAtec.Seletivo.Data
                                 Name = reader["Name"].ToString(),
                                 Email = reader["Email"].ToString(),
                                 Password = reader["Password"].ToString(),
+                                CPF = reader["CPF"].ToString(),
                                 Type = (UserType)reader["Type"]
 
                             };

@@ -20,7 +20,7 @@ namespace GAtec.Seletivo.Domain.Model
 
         public string Password { get; set; }
 
-        public string Cpf { get; set; }
+        public string CPF { get; set; }
 
         public UserType Type { get; set; }      
 

@@ -70,12 +70,12 @@ namespace GAtec.Seletivo.Business
                 throw new System.NotImplementedException();
             }
 
-            public User GetUser(int id)
+            public User Get(int id)
             {
                 throw new System.NotImplementedException();
             }
 
-            public IEnumerable<User> GetUsers()
+            public IEnumerable<User> GetAll()
             {
                 var data = UserRepository.GetAll();
 

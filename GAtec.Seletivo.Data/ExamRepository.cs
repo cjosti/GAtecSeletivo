@@ -18,8 +18,8 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("insert into GA_EXAM (Name) " +
-                                                "values (@name, @description)", con))
+                using (var cmd = new SqlCommand("INSERT INTO GA_EXAM (NAME) " +
+                                                "VALUES (@name, @description)", con))
                 {
                     cmd.Parameters.Add("name", SqlDbType.NVarChar).Value = item.Name;
 
@@ -35,9 +35,9 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("update GA_EXAM set " +
-                                                "Name = @name " +
-                                                "where Id = @id", con))
+                using (var cmd = new SqlCommand("UPDATE GA_EXAM SET " +
+                                                "NAME = @name " +
+                                                "WHERE ID = @id", con))
                 {
                     cmd.Parameters.Add("name", SqlDbType.NVarChar).Value = item.Name;
                     cmd.Parameters.Add("id", SqlDbType.Int).Value = item.Id;
@@ -53,7 +53,7 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("delete from GA_EXAM where Id = @id", con))
+                using (var cmd = new SqlCommand("DELETE FROM GA_EXAM WHERE ID = @id", con))
                 {
                     cmd.Parameters.Add("id", SqlDbType.Int).Value = id;
                     cmd.ExecuteNonQuery();
@@ -69,7 +69,7 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("select Id, Name from GA_EXAM where Id = @id", con))
+                using (var cmd = new SqlCommand("SELECT ID, NAME FROM GA_EXAM WHERE ID = @id", con))
                 {
                     cmd.Parameters.Add("id", SqlDbType.Int).Value = id;
 
@@ -101,7 +101,7 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("select Id, Name from GA_EXAM", con))
+                using (var cmd = new SqlCommand("SELECT ID, NAME FROM GA_EXAM", con))
                 {
                     using (var reader = cmd.ExecuteReader())
                     {
