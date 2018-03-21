@@ -10,82 +10,80 @@ using GAtec.Seletivo.Util;
 
 namespace GAtec.Seletivo.Business
 {
-    class UserService
+    public class UserService : IUserService
     {
-        public class CategoryService : IUserService
+        private IUserRepository UserRepository { get; set; }
+
+        public IValidationError Validator { get; set; }
+
+        public UserService(IUserRepository userRepository,
+                               IValidationError validator)
         {
-            private IUserRepository UserRepository { get; set; }
+            this.UserRepository = userRepository;
+            this.Validator = validator;
+        }
 
-            public IValidationError Validator { get; set; }
+        public bool Add(User user)
+        {
+            bool Error = false;
 
-            public CategoryService(IUserRepository userRepository,
-                                   IValidationError validator)
+            if (string.IsNullOrEmpty(user.Name))
             {
-                this.UserRepository = userRepository;
-                this.Validator = validator;
+                Validator.AddError("Name", "O nome é obrigatório");
+                Error = true;
+            }
+            if (string.IsNullOrEmpty(user.UserName)) //verificar também se o usuário já existe
+            {
+                Validator.AddError("UserName", "O usuário é obrigatório");
+                Error = true;
+            }
+            if (string.IsNullOrEmpty(user.Email))
+            {
+                Validator.AddError("Email", "O e-mail é obrigatório");
+                Error = true;
+            }
+            if (string.IsNullOrEmpty(user.Password))
+            {
+                Validator.AddError("Password", "O password é obrigatório");
+                Error = true;
             }
 
-            public bool Add(User user)
-            {
-                bool Error = false;
-
-                if (string.IsNullOrEmpty(user.Name))
-                {
-                    Validator.AddError("Name", "O nome é obrigatório");
-                    Error = true;
-                }
-                if (string.IsNullOrEmpty(user.UserName)) //verificar também se o usuário já existe
-                {
-                    Validator.AddError("UserName", "O usuário é obrigatório");
-                    Error = true;
-                }
-                if (string.IsNullOrEmpty(user.Email))
-                {
-                    Validator.AddError("Email","O e-mail é obrigatório");
-                    Error = true;
-                }
-                if (string.IsNullOrEmpty(user.Password))
-                {
-                    Validator.AddError("Password", "O password é obrigatório");
-                    Error = true;
-                }
-
-                if (Error)
-                {
-                    return false;
-                }
-
-                UserRepository.Add(user);
-
-                return true;
-            }
-
-            public bool Update(User user)
-            {
-                throw new System.NotImplementedException();
-            }
-
-            public bool Delete(int id)
-            {
-                throw new System.NotImplementedException();
-            }
-
-            public User Get(int id)
-            {
-                throw new System.NotImplementedException();
-            }
-
-            public IEnumerable<User> GetAll()
-            {
-                var data = UserRepository.GetAll();
-
-                return data;
-            }
-
-            public bool existUser(string username)
+            if (Error)
             {
                 return false;
             }
+
+            UserRepository.Add(user);
+
+            return true;
+        }
+
+        public bool Update(User user)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool Delete(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public User Get(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IEnumerable<User> GetAll()
+        {
+            var data = UserRepository.GetAll();
+
+            return data;
+        }
+
+        public bool existUser(string username)
+        {
+            return false;
         }
     }
+
 }
