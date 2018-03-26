@@ -27,13 +27,13 @@ namespace GAtec.Seletivo.Web.Controllers
             {
                 Auth.LogIn(input.Username, "Candidato");
 
-                return RedirectToAction("Home", "Home");
+                return RedirectToAction("Index", "Home");
             }
             else if (input.Username == "admin" && input.Password == "admin")
             {
                 Auth.LogIn(input.Username, "Admin");
 
-                return RedirectToAction("Home", "Home");
+                return RedirectToAction("Index", "Home");
             }
 
             return View(input);
