@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace GAtec.Seletivo.Web.Controllers
 {
+    [AllowAnonymous]
     public class RegisterController : Controller
     {
         // GET: Register
