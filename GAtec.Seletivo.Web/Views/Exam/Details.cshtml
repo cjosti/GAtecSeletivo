@@ -1,0 +1,26 @@
+﻿@model GAtec.Seletivo.Domain.Model.Exam
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div id="grid"></div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#grid").kendoGrid({
+            dataSource: {
+                transport: {
+                    read: "@Url.Action("IndexAsync","Exam")",
+                    dataType: "json",
+                    type: "GET"
+                }
+            }
+        });
+    });
+
+</script>
+

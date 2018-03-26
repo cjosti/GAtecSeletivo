@@ -5,20 +5,38 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-
+using Unity;
 using System.Security.Principal;
 using System.Web.Security;
+using GAtec.Seletivo.Business;
+using GAtec.Seletivo.Data;
+using GAtec.Seletivo.Domain.Business;
+using GAtec.Seletivo.Domain.Repository;
+using GAtec.Seletivo.Util;
+using GAtec.Seletivo.Util.Validation;
+using GAtec.Seletivo.Web.Libs;
 
 namespace GAtec.Seletivo.Web
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        public UnityContainer Container { get; set; }
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+
+            Container = new UnityContainer();
+
+            Container.RegisterType<IExamRepository, ExamRepository>();
+            Container.RegisterType<IExamService, ExamService>();
+            Container.RegisterType<IValidationError, DefaultValidation>();
+
+            DependencyResolver.SetResolver(new UnityDependencyResolver(Container));
         }
 
         protected void Application_PostAuthenticateRequest(object sender, EventArgs e)

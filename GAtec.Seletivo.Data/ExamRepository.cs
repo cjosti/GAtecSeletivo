@@ -7,10 +7,11 @@ using System.Data;
 using System.Data.SqlClient;
 using GAtec.Seletivo.Util.Settings;
 using GAtec.Seletivo.Domain.Model;
+using GAtec.Seletivo.Domain.Repository;
 
 namespace GAtec.Seletivo.Data
 {
-    class ExamRepository
+    public class ExamRepository: IExamRepository
     {
         public void Add(Exam item)
         {
@@ -19,7 +20,7 @@ namespace GAtec.Seletivo.Data
                 con.Open();
 
                 using (var cmd = new SqlCommand("INSERT INTO GA_EXAM (NAME) " +
-                                                "VALUES (@name, @description)", con))
+                                                "VALUES (@name)", con))
                 {
                     cmd.Parameters.Add("name", SqlDbType.NVarChar).Value = item.Name;
 

@@ -7,10 +7,11 @@ using System.Data;
 using System.Data.SqlClient;
 using GAtec.Seletivo.Util.Settings;
 using GAtec.Seletivo.Domain.Model;
+using GAtec.Seletivo.Domain.Repository;
 
 namespace GAtec.Seletivo.Data
 {
-    class QuestionRepository
+    class QuestionRepository: IQuestionRepository
     {
         public void Add(Question item)
         {
