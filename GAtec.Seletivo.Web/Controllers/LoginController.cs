@@ -5,12 +5,20 @@ using System.Web;
 using System.Web.Mvc;
 using GAtec.Seletivo.Domain.Model.Extended;
 using GAtec.Seletivo.Util.Libs;
+using GAtec.Seletivo.Domain.Business;
 
 namespace GAtec.Seletivo.Web.Controllers
 {
     [AllowAnonymous]
     public class LoginController : Controller
     {
+        private IUserService _userService; 
+
+        public LoginController(IUserService userService)
+        {
+            this._userService = userService;
+        }
+
         // GET: Login
         public ActionResult Index()
         {
@@ -23,9 +31,13 @@ namespace GAtec.Seletivo.Web.Controllers
             if (!ModelState.IsValid)
                 return View(input);
 
-            if (input.Username == "gatec" && input.Password == "12345")
+            var getUser = _userService.Get(input.Username);
+
+            if (getUser != null)
             {
-                Auth.LogIn(input.Username, "Candidato");
+                string tipo;
+
+                Auth.LogIn(getUser.Name, "Candidato");
 
                 return RedirectToAction("Index", "Home");
             }

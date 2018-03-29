@@ -86,7 +86,7 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("SELECT ID, NAME, USER, EMAIL, PASSWORD, CPF, TYPE FROM GA_USER WHERE ID = @id", con))
+                using (var cmd = new SqlCommand("SELECT ID, NAME, USERNAME, EMAIL, PASSWORD, CPF, TYPE FROM GA_USER WHERE ID = @id", con))
                 {
                     cmd.Parameters.Add("id", SqlDbType.Int).Value = id;
 
@@ -99,7 +99,44 @@ namespace GAtec.Seletivo.Data
 
                                 Id = reader.GetInt32(0),
                                 Name = reader["Name"].ToString(),
-                                UserName = reader["User"].ToString(),
+                                UserName = reader["UserName"].ToString(),
+                                Email = reader["Email"].ToString(),
+                                Password = reader["Password"].ToString(),
+                                CPF = reader["CPF"].ToString(),
+                                Type = (UserType)reader["Type"]
+                            };
+
+                        }
+
+                    }
+                }
+
+            }
+            return user;
+        }
+
+        public User Get(string username)
+        {
+            User user = null;
+
+            using (var con = new SqlConnection(SeletivoSettings.connectionString))
+            {
+                con.Open();
+
+                using (var cmd = new SqlCommand("SELECT ID, NAME, USERNAME, EMAIL, PASSWORD, CPF, TYPE FROM GA_USER WHERE USERNAME = @username", con))
+                {
+                    cmd.Parameters.Add("username", SqlDbType.VarChar).Value = username;
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            user = new User
+                            {
+
+                                Id = reader.GetInt32(0),
+                                Name = reader["Name"].ToString(),
+                                UserName = reader["UserName"].ToString(),
                                 Email = reader["Email"].ToString(),
                                 Password = reader["Password"].ToString(),
                                 CPF = reader["CPF"].ToString(),
@@ -123,7 +160,7 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("SELECT ID, NAME, USER, EMAIL, PASSWORD, CPF, TYPE FROM GA_USER", con))
+                using (var cmd = new SqlCommand("SELECT ID, NAME, USERNAME, EMAIL, PASSWORD, CPF, TYPE FROM GA_USER", con))
                 {
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -156,12 +193,23 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("select 1 from GA_USER where", con))
+                using (var cmd = new SqlCommand("SELECT 1 FROM GA_USER WHERE USERNAME = @user_name", con))
                 {
+                    cmd.Parameters.Add("user_name", SqlDbType.VarChar).Value = username;
 
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
                 }
             }
-            return false;
         }
     } 
         
