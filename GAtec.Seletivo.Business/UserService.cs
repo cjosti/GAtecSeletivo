@@ -73,6 +73,14 @@ namespace GAtec.Seletivo.Business
             throw new System.NotImplementedException();
         }
 
+        public User Get(string name)
+        {
+            //Implementar validações
+
+            return UserRepository.Get((string)name);
+            //throw new System.NotImplementedException();
+        }
+
         public IEnumerable<User> GetAll()
         {
             var data = UserRepository.GetAll();
@@ -80,9 +88,11 @@ namespace GAtec.Seletivo.Business
             return data;
         }
 
-        public bool existUser(string username)
+        public bool ExistUser(string username)
         {
-            return false;
+            var exist = UserRepository.ExistUser(username);
+
+            return exist;
         }
     }
 

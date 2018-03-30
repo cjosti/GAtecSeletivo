@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GAtec.Seletivo.Domain.Model
 {
-    public enum UserType { Admin = 0, Candidate = 1 }
+    public enum UserType { Admin = 1, Candidate = 0 }
 
     public class User
     {
