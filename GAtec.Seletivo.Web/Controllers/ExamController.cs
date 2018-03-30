@@ -35,6 +35,30 @@ namespace GAtec.Seletivo.Web.Controllers
             return View("Index");
         }
 
+        [HttpPost]
+        public ActionResult Update (Exam exam)
+        {
+            if (_examService.Update(exam))
+            {
+                return View("Index");
+            }
+
+            return View("Index");
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            if (_examService.Delete(id))
+            {
+                return View("Index");
+            }
+
+            return View("Index");
+        }
+
+
+
         public ActionResult Details()
         {
             return View();

@@ -1,0 +1,142 @@
+﻿@model GAtec.Seletivo.Domain.Model.Exam
+@{
+    ViewBag.Title = "Exam";
+}
+
+<h2> Cadastro de exames</h2>
+
+<div class="container">
+    <div class="row">
+        <form id="form-create">
+            <div class="row form-group">
+                @Html.LabelFor(model => model.Name, new { @class = "col-form-label" })
+                @Html.TextBoxFor(model => model.Name, new { @class = " form-control" })
+            </div>
+            <button type="submit" id="create" class="btn btn-info">
+                Cadastrar
+            </button>
+        </form>
+    </div>
+</div>
+
+<div id="grid"></div>
+
+<script>
+
+    $(document).ready(function () {        
+            dataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: "Exam/IndexAsync",
+                        dataType: "json",
+                        type: "GET"
+                    },
+                    update: {
+                        url: "Exam/Update",
+                        dataType: "json"
+                    },
+                    destroy: {
+                        url: "Exam/Delete",
+                        dataType: "json"
+                    },
+                    create: {
+                        url: "Exam/Create",
+                        dataType: "json"
+                    },
+                    parameterMap: function (options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return { models: kendo.stringify(options.models) };
+                        }
+                    }
+                },
+                batch: true,
+                pageSize: 20,
+                schema: {
+                    model: {
+                        id: "Id",
+                        fields: {
+                            Id: { editable: false, nullable: true },
+                            Name: { validation: { required: true } }
+                        }
+                    }
+                }
+            });
+
+        $("#grid").kendoGrid({
+            dataSource: dataSource,
+            navigatable: true,
+            pageable: true,
+            height: 550,
+            toolbar: ["create", "save", "cancel"],
+            columns: [
+                "Name",               
+                { command: "destroy", title: "&nbsp;", width: 150 }],
+            editable: true
+        });
+    });
+
+    function customBoolEditor(container, options) {
+        var guid = kendo.guid();
+        $('<input class="k-checkbox" id="' + guid + '" type="checkbox" name="Discontinued" data-type="boolean" data-bind="checked:Discontinued">').appendTo(container);
+        $('<label class="k-checkbox-label" for="' + guid + '">&#8203;</label>').appendTo(container);
+    }
+
+    @*$(document).ready(function () {
+
+        $("#grid").kendoGrid({
+            dataSource: {
+                transport: {
+                    read: "@Url.Action("IndexAsync","Exam")",
+                    dataType: "json",
+                    type: "GET"
+                }
+            },
+            columns: [{
+                field: "Id",
+                hidden: true
+            }, {
+                field: "Name",
+                title: "Nome"
+            },{
+                 template: "<button id='delete' class = 'btn btn-danger'>Excluir</button>"
+            }]
+        });
+    });
+
+    $("#form-create").on("submit", function (e) {
+        var data = $("#form-create").serialize();
+
+        $.ajax({
+            type: "POST",
+            url: 'Create',
+            data: data,
+            success: function () {
+                atualizarGrid();
+            }
+        });
+
+        e.preventDefault();
+    });
+
+    $("#grid").on("click","#delete", function () {
+        var grid = $("#grid").data("kendoGrid"),
+            $button = $(this),
+            $tr = $button.closest("tr");
+            dataItem = grid.dataItem($tr);
+
+            $.ajax({
+                url: 'Delete/' + dataItem.Id
+            }).done(function () {
+                $tr.remove();
+                atualizarGrid();
+            });
+    });
+
+    var atualizarGrid = function () {
+        var grid = $("#grid").data("kendoGrid");
+        grid.dataSource.read();
+    };*@
+
+</script>
+
+
