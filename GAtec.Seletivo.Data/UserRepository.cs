@@ -115,7 +115,7 @@ namespace GAtec.Seletivo.Data
             return user;
         }
 
-        public User Get(string username)
+        public User Get(string username, string password)
         {
             User user = null;
 
@@ -123,9 +123,24 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("SELECT ID, NAME, USERNAME, EMAIL, PASSWORD, CPF, TYPE FROM GA_USER WHERE USERNAME = @username", con))
+                string IsPassword;
+
+                if(password != null)
+                {
+                    IsPassword = " AND PASSWORD = @pass";
+                }
+                else
+                {
+                    IsPassword = " AND PASSWORD IS NULL";
+                }
+
+                using (var cmd = new SqlCommand("SELECT ID, NAME, USERNAME, EMAIL, PASSWORD, CPF, TYPE FROM GA_USER WHERE USERNAME = @username" + IsPassword, con))
                 {
                     cmd.Parameters.Add("username", SqlDbType.VarChar).Value = username;
+                    if (password != null)
+                    {
+                        cmd.Parameters.Add("pass", SqlDbType.VarChar).Value = password;
+                    }
 
                     using (var reader = cmd.ExecuteReader())
                     {

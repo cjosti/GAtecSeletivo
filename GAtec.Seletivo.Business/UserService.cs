@@ -73,11 +73,11 @@ namespace GAtec.Seletivo.Business
             throw new System.NotImplementedException();
         }
 
-        public User Get(string name)
+        public User Get(string name, string password)
         {
             //Implementar validações
 
-            return UserRepository.Get((string)name);
+            return UserRepository.Get(name, password);
             //throw new System.NotImplementedException();
         }
 

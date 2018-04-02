@@ -12,7 +12,7 @@ namespace GAtec.Seletivo.Web.Controllers
     [AllowAnonymous]
     public class LoginController : Controller
     {
-        private IUserService _userService; 
+        private IUserService _userService;
 
         public LoginController(IUserService userService)
         {
@@ -31,21 +31,25 @@ namespace GAtec.Seletivo.Web.Controllers
             if (!ModelState.IsValid)
                 return View(input);
 
-            var getUser = _userService.Get(input.Username);
+            var getUser = _userService.Get(input.Username, input.Password);
 
             if (getUser != null)
             {
-                //string tipo;
+                if (getUser.Type.Equals(Domain.Model.UserType.Candidate))
+                {
+                   
+                    //string tipo;
 
-                Auth.LogIn(getUser.Name, "Candidato");
+                    Auth.LogIn(getUser.Name, "Candidato");
 
-                return RedirectToAction("Index", "Home");
-            }
-            else if (input.Username == "admin" && input.Password == "admin")
-            {
-                Auth.LogIn(input.Username, "Admin");
+                    return RedirectToAction("Index", "Home");
+                }
+                else if (getUser.Type.Equals(Domain.Model.UserType.Admin))
+                {
+                    Auth.LogIn(input.Username, "Admin");
 
-                return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Admin");
+                }
             }
 
             return View(input);

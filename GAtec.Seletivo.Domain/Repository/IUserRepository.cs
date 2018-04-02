@@ -10,5 +10,6 @@ namespace GAtec.Seletivo.Domain.Repository
     public interface IUserRepository : IBaseRepository<User>
     {
         bool ExistUser(string username);
+        User Get(string name, string password);
     }
 }

@@ -8,12 +8,12 @@ namespace GAtec.Seletivo.Domain.Model.Extended
 {
     public class LoginInfo
     {
-        [Display(Name = "User Name")]
+        [Display(Name = "Usuário:")]
         [Required(ErrorMessage = "The user name is required.")]
         [StringLength(20, ErrorMessage = "The length should be lower than 20.")]
         public string Username { get; set; }
 
-        [Display(Name = "Password")]
+        [Display(Name = "Senha:")]
         [StringLength(20, ErrorMessage = "The length should be lower than 20.")]
         public string Password { get; set; }
 
