@@ -1,9 +1,71 @@
-﻿
+﻿@model GAtec.Seletivo.Domain.Model.Extended.LoginInfo
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Admin";
 }
 
-<h2>Index</h2>
+<!DOCTYPE html>
 
-<h1>teste</h1>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/Site.css">
 
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" media="screen" />
+
+</head>
+<body class="reset">
+    <div class="bg">
+    </div>
+    <div class="form-front">
+        @using (Html.BeginForm("Index", "Login", FormMethod.Post))
+        {
+            <div class="col form-group">
+                <div class="col col-md-12"></div>
+                <div class="col col-md-12"></div>
+            </div>
+            <div class="row form-group">
+                <div class="col col-md-1"></div>
+                <div class="col col-md-3">
+                    @Html.LabelFor(model => model.Username)
+                </div>
+                <div class="col col-md-5">
+                    @Html.TextBoxFor(model => model.Username, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Username)
+                </div>
+                <div class="col col-md-2"></div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-1"></div>
+                <div class="col col-xs-12 col-md-3">
+                    @Html.LabelFor(model => model.Password)
+                </div>
+                <div class="col col-xs-12 col-md-6">
+                    @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Password)
+                </div>
+                <div class="col col-md-2"></div>
+            </div>
+
+            <div class="row">
+                <div class="col col-md-2"></div>
+                @*@<div class="col col-md-4">
+                        <button type="submit" class="btn btn-info">
+                            Cadastrar
+                        </button>
+                    </div>*@
+
+                <div class="col col-md-4">
+                    <button type="submit" class="btn btn-success">
+                        Login
+                    </button>
+                </div>
+                <div class="col col-md-2"></div>
+            </div>
+        }
+
+    </div>
+</body>
+</html>
