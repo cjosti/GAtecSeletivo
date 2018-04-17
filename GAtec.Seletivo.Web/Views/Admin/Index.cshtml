@@ -1,7 +1,7 @@
 ﻿@model GAtec.Seletivo.Domain.Model.Extended.LoginInfo
 
 @{
-    ViewBag.Title = "Admin";
+    Layout = null;
 }
 
 <!DOCTYPE html>
@@ -15,57 +15,75 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" media="screen" />
 
 </head>
-<body class="reset">
-    <div class="bg">
-    </div>
-    <div class="form-front">
-        @using (Html.BeginForm("Index", "Login", FormMethod.Post))
-        {
-            <div class="col form-group">
-                <div class="col col-md-12"></div>
-                <div class="col col-md-12"></div>
-            </div>
-            <div class="row form-group">
-                <div class="col col-md-1"></div>
-                <div class="col col-md-3">
-                    @Html.LabelFor(model => model.Username)
-                </div>
-                <div class="col col-md-5">
-                    @Html.TextBoxFor(model => model.Username, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Username)
-                </div>
-                <div class="col col-md-2"></div>
-            </div>
-
-            <div class="row form-group">
-                <div class="col col-md-1"></div>
-                <div class="col col-xs-12 col-md-3">
-                    @Html.LabelFor(model => model.Password)
-                </div>
-                <div class="col col-xs-12 col-md-6">
-                    @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Password)
-                </div>
-                <div class="col col-md-2"></div>
-            </div>
-
-            <div class="row">
-                <div class="col col-md-2"></div>
-                @*@<div class="col col-md-4">
-                        <button type="submit" class="btn btn-info">
-                            Cadastrar
-                        </button>
-                    </div>*@
-
-                <div class="col col-md-4">
-                    <button type="submit" class="btn btn-success">
-                        Login
-                    </button>
-                </div>
-                <div class="col col-md-2"></div>
-            </div>
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
         }
 
-    </div>
+        .menu {
+            width: 100%;
+            height: 50px;
+            background-color: #222;
+            font-family: 'Arial';
+        }
+
+            .menu ul {
+                list-style: none;
+                position: relative;
+            }
+
+                .menu ul li {
+                    width: 150px;
+                    float: left;
+                }
+
+            .menu a {
+                padding: 15px;
+                display: block;
+                text-decoration: none;
+                text-align: center;
+                background-color: #222;
+                color: #fff;
+            }
+
+            .menu ul ul {
+                position: absolute;
+                visibility: hidden;
+            }
+
+                .menu ul ul li {
+                    float: none;
+                    border-bottom: solid 1px #ccc;
+                }
+
+            .menu ul li:hover ul {
+                visibility: visible;
+            }
+
+            .menu a:hover {
+                background-color: #f4f4f4;
+                color: #555;
+            }
+    </style>
+
+
+    <nav class="menu">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li>
+                <a href="#">Cadastros</a>
+                <ul>
+                    <li><a href="#">Recrutamento</a></li>
+                    <li><a href="#">Exames</a></li>
+                    <li><a href="#">Perguntas</a></li>
+                    <li><a href="#">Respostas</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Cursos</a></li>
+            <li><a href="#">Contato</a></li>
+        </ul>
+    </nav>
 </body>
 </html>

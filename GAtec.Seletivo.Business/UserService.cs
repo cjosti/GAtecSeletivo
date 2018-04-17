@@ -85,7 +85,7 @@ namespace GAtec.Seletivo.Business
         {
             //Implementar validações
 
-            return UserRepository.Get(cpf);
+            return UserRepository.GetInfo(cpf);
             //throw new System.NotImplementedException();           
         }
 

@@ -26,12 +26,12 @@ namespace GAtec.Seletivo.Data
                 userName = userName.Substring(0, 2) + codUser;
 
 
-                using (var cmd = new SqlCommand("INSERT INTO GA_USER (NAME, USERNAME, PASSWORD, EMAIL, CPF, TYPE)" +
-                                                " VALUES (@name, @userName, @password, @email, @CPF, @type)", con))
+                using (var cmd = new SqlCommand("INSERT INTO GA_USER (NAME, USERNAME, EMAIL, CPF, TYPE)" +
+                                                " VALUES (@name, @userName, @email, @CPF, @type)", con))
                 {
                     cmd.Parameters.Add("name", SqlDbType.VarChar).Value = item.Name;
                     cmd.Parameters.Add("userName", SqlDbType.VarChar).Value = userName;
-                    cmd.Parameters.Add("password", SqlDbType.NVarChar).Value = "";
+                    //cmd.Parameters.Add("password", SqlDbType.NVarChar).Value = "";
                     cmd.Parameters.Add("email", SqlDbType.VarChar).Value = item.Email;
                     cmd.Parameters.Add("CPF", SqlDbType.VarChar).Value = item.CPF;
                     cmd.Parameters.Add("type", SqlDbType.Int).Value = 0;

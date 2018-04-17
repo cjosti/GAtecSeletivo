@@ -10,6 +10,7 @@ using GAtec.Seletivo.Domain.Business;
 namespace GAtec.Seletivo.Web.Controllers
 {
     //[Authorize(Roles = "Admin")]
+    [AllowAnonymous]
     public class AdminController : Controller
     {
         private IUserService _userService;
