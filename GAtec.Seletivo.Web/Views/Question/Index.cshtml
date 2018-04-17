@@ -1,0 +1,145 @@
+﻿@model GAtec.Seletivo.Domain.Model.Question
+@{
+    ViewBag.Title = "Question";
+}
+
+<h2> Cadastro de Questões</h2>
+
+<div class="container">
+    <div class="row">
+        <form id="form-create">
+            <div class="row form-group">
+                @Html.LabelFor(model => model.Name, new { @class = "col-form-label" })
+                @Html.TextBoxFor(model => model.Name, new { @class = " form-control" })
+            </div>
+            <button type="submit" id="create" class="btn btn-info">
+                Cadastrar
+            </button>
+        </form>
+    </div>
+</div>
+
+<div id="grid" class="col-md-8"></div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-edit" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Editar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <form id="form-edit">
+                            <div class="row form-group">
+                                @Html.LabelFor(model => model.Name, new { @class = "col-form-label" })
+                                @Html.TextBoxFor(model => model.Name, new { @class = " form-control", id = "name-edit" })
+                                @Html.HiddenFor(model => model.Id, new { id = "id-edit" })
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>
+                <button id="update" type="button" class="btn btn-primary">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#grid").kendoGrid({
+            dataSource: {
+                transport: {
+                    read: "@Url.Action("IndexAsync","Exam")",
+                    dataType: "json",
+                    type: "GET"
+                }
+            },
+            columns: [{
+                field: "Id",
+                hidden: true
+            }, {
+                field: "Name",
+                title: "Nome",
+                width: 500
+            },{
+               template: "<button id='edit' class = 'btn btn-success'>Editar</button>",
+               attributes: { "class": "text-center",}
+            },{
+               template: "<button id='delete' class = 'btn btn-danger'>Excluir</button>",
+               attributes: { "class": "text-center", }
+            }]
+        });
+    });
+
+    $("#form-create").on("submit", function (e) {
+        var data = $("#form-create").serialize();
+
+        $.ajax({
+            type: "POST",
+            url: 'Create',
+            data: data,
+            success: function () {
+                atualizarGrid();
+            }
+        });
+
+        e.preventDefault();
+    });
+
+    $("#grid").on("click", "#edit", function () {
+        var grid = $("#grid").data("kendoGrid"),
+            $button = $(this),
+            $tr = $button.closest("tr");
+            dataItem = grid.dataItem($tr);
+
+
+            $("#name-edit").val(dataItem.Name);
+            $("#id-edit").val(dataItem.Id);
+            $('#modal-edit').modal('show');
+    });
+
+    $("#update").on("click", function () {
+        var data = $("#form-edit").serialize();
+
+        $.ajax({
+            type: "POST",
+            url: 'Update',
+            data: data,
+            success: function () {
+            atualizarGrid();
+            }
+        });
+    });
+
+    $("#grid").on("click","#delete", function () {
+        var grid = $("#grid").data("kendoGrid"),
+            $button = $(this),
+            $tr = $button.closest("tr");
+            dataItem = grid.dataItem($tr);
+
+            $.ajax({
+                url: 'Delete/' + dataItem.Id
+            }).done(function () {
+                $tr.remove();
+                atualizarGrid();
+            });
+    });
+
+    var atualizarGrid = function () {
+        var grid = $("#grid").data("kendoGrid");
+        grid.dataSource.read();
+    };
+
+</script>
+
+

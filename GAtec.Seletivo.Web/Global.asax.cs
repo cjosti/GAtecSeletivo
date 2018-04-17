@@ -34,6 +34,8 @@ namespace GAtec.Seletivo.Web
 
             Container.RegisterType<IExamRepository, ExamRepository>();
             Container.RegisterType<IExamService, ExamService>();
+            Container.RegisterType<IQuestionRepository, QuestionRepository>();
+            Container.RegisterType<IQuestionService, QuestionService>();
             Container.RegisterType<IUserRepository, UserRepository>();
             Container.RegisterType<IUserService, UserService>();
             Container.RegisterType<IValidationError, DefaultValidation>();

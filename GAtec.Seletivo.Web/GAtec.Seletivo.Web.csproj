@@ -172,6 +172,7 @@
     <Compile Include="Controllers\ExamController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -291,6 +292,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Exam\Details.cshtml" />
     <Content Include="Views\Exam\Teste.cshtml" />
+    <Content Include="Views\Question\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
