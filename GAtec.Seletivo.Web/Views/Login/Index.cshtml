@@ -1,7 +1,8 @@
-﻿@model GAtec.Seletivo.Domain.Model.Extended.LoginInfo
+﻿@model GAtec.Seletivo.Domain.Model.User
 
 @{
-    ViewBag.Title = "Login";
+    //ViewBag.Title = "Login";
+    Layout = null;
 }
 
 <!DOCTYPE html>
@@ -16,6 +17,11 @@
 
 </head>
 <body class="reset">
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">GAtec Seletivo</a>
+        <a class="nav-item nav-link">@Html.ActionLink("Admin", "Index", "Admin", null, new { @class = "nav-link" })</a>
+        <!-- Navbar content -->
+    </nav>
     <div class="bg">
     </div>
     <div class="form-front">
@@ -28,23 +34,35 @@
         <div class="row form-group">
             <div class="col col-md-1"></div>
             <div class="col col-md-3">
-                @Html.LabelFor(model => model.Username)
+                @Html.LabelFor(model => model.Name)
             </div>
             <div class="col col-md-5">
-                @Html.TextBoxFor(model => model.Username, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Username)
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Name)
             </div>
             <div class="col col-md-2"></div>
         </div>
 
         <div class="row form-group">
             <div class="col col-md-1"></div>
-            <div class="col col-xs-12 col-md-3">
-                @Html.LabelFor(model => model.Password)
+            <div class="col col-md-3">
+                @Html.LabelFor(model => model.CPF)
             </div>
-            <div class="col col-xs-12 col-md-6">
-                @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Password)
+            <div class="col col-md-5">
+                @Html.TextBoxFor(model => model.CPF, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CPF)
+            </div>
+            <div class="col col-md-2"></div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col col-md-1"></div>
+            <div class="col col-md-3">
+                @Html.LabelFor(model => model.Email)
+            </div>
+            <div class="col col-md-5">
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Email)
             </div>
             <div class="col col-md-2"></div>
         </div>

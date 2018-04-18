@@ -32,21 +32,21 @@ namespace GAtec.Seletivo.Business
                 Validator.AddError("Name", "O nome é obrigatório");
                 Error = true;
             }
-            if (string.IsNullOrEmpty(user.UserName)) //verificar também se o usuário já existe
+            /*if (string.IsNullOrEmpty(user.UserName)) //verificar também se o usuário já existe
             {
                 Validator.AddError("UserName", "O usuário é obrigatório");
                 Error = true;
-            }
+            }*/
             if (string.IsNullOrEmpty(user.Email))
             {
                 Validator.AddError("Email", "O e-mail é obrigatório");
                 Error = true;
             }
-            if (string.IsNullOrEmpty(user.Password))
+            /*if (string.IsNullOrEmpty(user.Password))
             {
                 Validator.AddError("Password", "O password é obrigatório");
                 Error = true;
-            }
+            }*/
 
             if (Error)
             {
@@ -70,15 +70,23 @@ namespace GAtec.Seletivo.Business
 
         public User Get(int id)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public User Get(string name)
+        public User Get(string name, string password)
         {
             //Implementar validações
 
-            return UserRepository.Get((string)name);
+            return UserRepository.Get(name, password);
             //throw new System.NotImplementedException();
+        }
+
+        public User GetInfo(string cpf)
+        {
+            //Implementar validações
+
+            return UserRepository.GetInfo(cpf);
+            //throw new System.NotImplementedException();           
         }
 
         public IEnumerable<User> GetAll()
@@ -91,6 +99,13 @@ namespace GAtec.Seletivo.Business
         public bool ExistUser(string username)
         {
             var exist = UserRepository.ExistUser(username);
+
+            return exist;
+        }
+
+        public bool ExistCpf(string cpf)
+        {
+            var exist = UserRepository.ExistCpf(cpf);
 
             return exist;
         }

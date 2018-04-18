@@ -6,16 +6,16 @@ using System.Web.Mvc;
 using GAtec.Seletivo.Domain.Model.Extended;
 using GAtec.Seletivo.Util.Libs;
 using GAtec.Seletivo.Domain.Business;
-using GAtec.Seletivo.Domain.Model;
 
 namespace GAtec.Seletivo.Web.Controllers
 {
+    //[Authorize(Roles = "Admin")]
     [AllowAnonymous]
-    public class LoginController : Controller
+    public class AdminController : Controller
     {
         private IUserService _userService;
 
-        public LoginController(IUserService userService)
+        public AdminController(IUserService userService)
         {
             this._userService = userService;
         }
@@ -27,32 +27,18 @@ namespace GAtec.Seletivo.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(User input)
+        public ActionResult Index(LoginInfo input)
         {
-            //if (!ModelState.IsValid)
-            //    return View(input);
+            if (!ModelState.IsValid)
+                return View(input);
 
-            if (!_userService.ExistCpf(input.CPF))
-            {
-                _userService.Add(input);
-            }
-
-            var getUser = _userService.GetInfo(input.CPF);
+            var getUser = _userService.Get(input.Username, input.Password);
 
             if (getUser != null)
             {
-                if (getUser.Type.Equals(Domain.Model.UserType.Candidate))
+                if (getUser.Type.Equals(Domain.Model.UserType.Admin))
                 {
-                   
-                    //string tipo;
-
-                    Auth.LogIn(getUser.Name, "Candidato");
-
-                    return RedirectToAction("Index", "Home");
-                }
-                else if (getUser.Type.Equals(Domain.Model.UserType.Admin))
-                {
-                    Auth.LogIn(input.UserName, "Admin");
+                    Auth.LogIn(input.Username, "Admin");
 
                     return RedirectToAction("Index", "Admin");
                 }

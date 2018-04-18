@@ -12,7 +12,7 @@ using GAtec.Seletivo.Util.Settings;
 
 namespace GAtec.Seletivo.Data
 {
-    public class UserRepository: IUserRepository
+    public class UserRepository : IUserRepository
     {
         public void Add(User item)
         {
@@ -20,15 +20,21 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("INSERT INTO GA_USER (NAME, USERNAME, PASSWORD, EMAIL, CPF, TYPE)" +
-                                                "VALUES (@name, @userName, @email, @CPF, @password, @type)", con))
+                int codUser = MaxCodUser();
+
+                string userName = item.Name;
+                userName = userName.Substring(0, 2) + codUser;
+
+
+                using (var cmd = new SqlCommand("INSERT INTO GA_USER (NAME, USERNAME, EMAIL, CPF, TYPE)" +
+                                                " VALUES (@name, @userName, @email, @CPF, @type)", con))
                 {
                     cmd.Parameters.Add("name", SqlDbType.VarChar).Value = item.Name;
-                    cmd.Parameters.Add("userName", SqlDbType.VarChar).Value = item.UserName;
+                    cmd.Parameters.Add("userName", SqlDbType.VarChar).Value = userName;
+                    //cmd.Parameters.Add("password", SqlDbType.NVarChar).Value = "";
                     cmd.Parameters.Add("email", SqlDbType.VarChar).Value = item.Email;
                     cmd.Parameters.Add("CPF", SqlDbType.VarChar).Value = item.CPF;
-                    cmd.Parameters.Add("password", SqlDbType.NVarChar).Value = item.Password;
-                    cmd.Parameters.Add("type", SqlDbType.Int).Value = item.UserName;
+                    cmd.Parameters.Add("type", SqlDbType.Int).Value = 0;
 
                     cmd.ExecuteNonQuery();
                 }
@@ -80,15 +86,35 @@ namespace GAtec.Seletivo.Data
 
         public User Get(object id)
         {
+            throw new NotImplementedException();
+        }
+
+        public User Get(string username, string password)
+        {
             User user = null;
 
             using (var con = new SqlConnection(SeletivoSettings.connectionString))
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("SELECT ID, NAME, USERNAME, EMAIL, PASSWORD, CPF, TYPE FROM GA_USER WHERE ID = @id", con))
+                string IsPassword;
+
+                if (password != null)
                 {
-                    cmd.Parameters.Add("id", SqlDbType.Int).Value = id;
+                    IsPassword = " AND PASSWORD = @pass";
+                }
+                else
+                {
+                    IsPassword = " AND PASSWORD IS NULL";
+                }
+
+                using (var cmd = new SqlCommand("SELECT ID, NAME, USERNAME, EMAIL, PASSWORD, CPF, TYPE FROM GA_USER WHERE USERNAME = @username" + IsPassword, con))
+                {
+                    cmd.Parameters.Add("username", SqlDbType.VarChar).Value = username;
+                    if (password != null)
+                    {
+                        cmd.Parameters.Add("pass", SqlDbType.VarChar).Value = password;
+                    }
 
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -115,7 +141,7 @@ namespace GAtec.Seletivo.Data
             return user;
         }
 
-        public User Get(string username)
+        public User GetInfo(string cpf)
         {
             User user = null;
 
@@ -123,9 +149,9 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("SELECT ID, NAME, USERNAME, EMAIL, PASSWORD, CPF, TYPE FROM GA_USER WHERE USERNAME = @username", con))
+                using (var cmd = new SqlCommand("SELECT ID, NAME, USERNAME, EMAIL, PASSWORD, CPF, TYPE FROM GA_USER WHERE CPF = @cpf", con))
                 {
-                    cmd.Parameters.Add("username", SqlDbType.VarChar).Value = username;
+                    cmd.Parameters.Add("cpf", SqlDbType.VarChar).Value = cpf;
 
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -211,6 +237,56 @@ namespace GAtec.Seletivo.Data
                 }
             }
         }
-    } 
-        
+
+        public bool ExistCpf(string cpf)
+        {
+            using (var con = new SqlConnection(SeletivoSettings.connectionString))
+            {
+                con.Open();
+
+                using (var cmd = new SqlCommand("SELECT 1 FROM GA_USER WHERE CPF = @cpf", con))
+                {
+                    cmd.Parameters.Add("cpf", SqlDbType.VarChar).Value = cpf;
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+
+        public int MaxCodUser()
+        {
+            using (var con = new SqlConnection(SeletivoSettings.connectionString))
+            {
+                con.Open();
+
+                using (var cmd = new SqlCommand("SELECT MAX(ID) + 1 MAX_ID FROM GA_USER", con))
+                {
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return (int)reader["MAX_ID"];
+                        }
+                        else
+                        {
+                            return 0;
+                        }
+                    }
+                }
+            }
+
+        }
+
+    }
+
 }

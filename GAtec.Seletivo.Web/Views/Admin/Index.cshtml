@@ -1,0 +1,89 @@
+﻿@model GAtec.Seletivo.Domain.Model.Extended.LoginInfo
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/Site.css">
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" media="screen" />
+
+</head>
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu {
+            width: 100%;
+            height: 50px;
+            background-color: #222;
+            font-family: 'Arial';
+        }
+
+            .menu ul {
+                list-style: none;
+                position: relative;
+            }
+
+                .menu ul li {
+                    width: 150px;
+                    float: left;
+                }
+
+            .menu a {
+                padding: 15px;
+                display: block;
+                text-decoration: none;
+                text-align: center;
+                background-color: #222;
+                color: #fff;
+            }
+
+            .menu ul ul {
+                position: absolute;
+                visibility: hidden;
+            }
+
+                .menu ul ul li {
+                    float: none;
+                    border-bottom: solid 1px #ccc;
+                }
+
+            .menu ul li:hover ul {
+                visibility: visible;
+            }
+
+            .menu a:hover {
+                background-color: #f4f4f4;
+                color: #555;
+            }
+    </style>
+
+
+    <nav class="menu">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li>
+                <a href="#">Cadastros</a>
+                <ul>
+                    <li><a href="#">Recrutamento</a></li>
+                    <li><a href="#">Exames</a></li>
+                    <li><a href="#">Perguntas</a></li>
+                    <li><a href="#">Respostas</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Cursos</a></li>
+            <li><a href="#">Contato</a></li>
+        </ul>
+    </nav>
+</body>
+</html>
