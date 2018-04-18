@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GAtec.Seletivo.Domain.Model;
 using GAtec.Seletivo.Domain.Business;
 using GAtec.Seletivo.Domain.Repository;
 using GAtec.Seletivo.Util;
@@ -22,13 +23,13 @@ namespace GAtec.Seletivo.Business
             this.Validator = validator;
         }
 
-        public bool Add(Exam exam)
+        public bool Add(Question question)
         {
             bool Error = false;
 
-            if (string.IsNullOrEmpty(exam.Name))
+            if (string.IsNullOrEmpty(question.Description))
             {
-                Validator.AddError("Name", "O nome é obrigatório");
+                Validator.AddError("Description", "O nome é obrigatório");
                 Error = true;
             }
 
@@ -37,18 +38,18 @@ namespace GAtec.Seletivo.Business
                 return false;
             }
 
-            ExamRepository.Add(exam);
+            QuestionRepository.Add(question);
 
             return true;
         }
 
-        public bool Update(Exam exam)
+        public bool Update(Question question)
         {
             bool Error = false;
 
-            if (string.IsNullOrEmpty(exam.Name))
+            if (string.IsNullOrEmpty(question.Description))
             {
-                Validator.AddError("Name", "O nome é obrigatório");
+                Validator.AddError("Description", "O nome é obrigatório");
                 Error = true;
             }
 
@@ -57,27 +58,27 @@ namespace GAtec.Seletivo.Business
                 return false;
             }
 
-            ExamRepository.Update(exam);
+            QuestionRepository.Update(question);
             return true;
         }
 
         public bool Delete(int id)
         {
-            ExamRepository.Delete(id);
+            QuestionRepository.Delete(id);
             return true;
         }
 
-        public Exam Get(int id)
+        public Question Get(int id)
         {
-            var exam = ExamRepository.Get(id);
-            return exam;
+            var question = QuestionRepository.Get(id);
+            return question;
         }
 
-        public IEnumerable<Exam> GetAll()
+        public IEnumerable<Question> GetAll()
         {
-            var exams = ExamRepository.GetAll();
+            var questions = QuestionRepository.GetAll();
 
-            return exams;
+            return questions;
         }
     }
 }
