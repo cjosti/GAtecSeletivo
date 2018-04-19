@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using GAtec.Seletivo.Domain.Model.Extended;
 using GAtec.Seletivo.Util.Libs;
 using GAtec.Seletivo.Domain.Business;
+using GAtec.Seletivo.Domain.Model;
 
 namespace GAtec.Seletivo.Web.Controllers
 {
@@ -27,20 +28,20 @@ namespace GAtec.Seletivo.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(LoginInfo input)
+        public ActionResult Index(User input)
         {
-            if (!ModelState.IsValid)
-                return View(input);
+            //if (!ModelState.IsValid)
+            //    return View(input);
 
-            var getUser = _userService.Get(input.Username, input.Password);
+            var getUser = _userService.Get(input.UserName, input.Password);
 
             if (getUser != null)
             {
                 if (getUser.Type.Equals(Domain.Model.UserType.Admin))
                 {
-                    Auth.LogIn(input.Username, "Admin");
+                    Auth.LogIn(input.UserName, "Admin");
 
-                    return RedirectToAction("Index", "Admin");
+                    return RedirectToAction("Index", "Main");
                 }
             }
 
