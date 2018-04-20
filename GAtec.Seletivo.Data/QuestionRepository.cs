@@ -11,7 +11,7 @@ using GAtec.Seletivo.Domain.Repository;
 
 namespace GAtec.Seletivo.Data
 {
-    class QuestionRepository: IQuestionRepository
+    public class QuestionRepository: IQuestionRepository
     {
         public void Add(Question item)
         {
