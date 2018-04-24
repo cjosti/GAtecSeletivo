@@ -23,8 +23,9 @@ namespace GAtec.Seletivo.Data
                 int codUser = MaxCodUser();
 
                 string userName = item.Name;
-                userName = userName.Substring(0, 2) + codUser;
+               // userName = userName.Substring(0, 2) + codUser;
 
+                userName = CreateUsername(userName, codUser);
 
                 using (var cmd = new SqlCommand("INSERT INTO GA_USER (NAME, USERNAME, EMAIL, CPF, TYPE)" +
                                                 " VALUES (@name, @userName, @email, @CPF, @type)", con))
@@ -285,6 +286,28 @@ namespace GAtec.Seletivo.Data
                 }
             }
 
+        }
+
+        private string CreateUsername(string Username, int codlen)
+        {
+            string nick = "";
+
+            //Pega até o espaço
+            if(Username.IndexOf(' ') > 1 )
+            {
+                nick = Username.Substring(0, Username.IndexOf(' '));
+            }
+
+            //Se for maior que 15 corta em substring
+            if (nick.Length > 12)
+            {
+                nick = Username.Substring(0, 12);
+            }
+
+            //Adiciona o código
+            nick = nick + codlen;
+
+            return nick;
         }
 
     }
