@@ -9,8 +9,12 @@
     <div class="row">
         <form id="form-create">
             <div class="row form-group">
-                @Html.LabelFor(model => model.Name, new { @class = "col-form-label" })
-                @Html.TextBoxFor(model => model.Name, new { @class = " form-control" })
+                @Html.LabelFor(model => model.Description, new { @class = "col-form-label" })
+                @Html.TextBoxFor(model => model.Description, new { @class = " form-control" })
+            </div>
+            <div class="row form-group">                
+                @Html.TextBoxFor(model => model.Type, new { @class = " form-control", id = "type" })
+                
             </div>
             <button type="submit" id="create" class="btn btn-info">
                 Cadastrar
@@ -36,10 +40,14 @@
                     <div class="row">
                         <form id="form-edit">
                             <div class="row form-group">
-                                @Html.LabelFor(model => model.Name, new { @class = "col-form-label" })
-                                @Html.TextBoxFor(model => model.Name, new { @class = " form-control", id = "name-edit" })
-                                @Html.HiddenFor(model => model.Id, new { id = "id-edit" })
+                                @Html.LabelFor(model => model.Description, new { @class = "col-form-label" })
+                                @Html.TextBoxFor(model => model.Description, new { @class = " form-control", id = "description-edit" })
                             </div>
+                            <div class="row form-group">
+                                @Html.LabelFor(model => model.Type, new { @class = "col-form-label" })
+                                @Html.TextBoxFor(model => model.Type, new { @class = " form-control", id = "type-edit" })
+                                @Html.HiddenFor(model => model.Id, new { id = "id-edit" })
+                            </div>                            
                         </form>
                     </div>
                 </div>
@@ -51,34 +59,59 @@
         </div>
     </div>
 </div>
-
+    
 <script>
 
     $(document).ready(function () {
 
+        var data = [
+            { text: "Dissertation", value: "1" },
+            { text: "Multiple Choice", value: "2" }
+        ];
+
+        // create DropDownList from input HTML element
+        $("#type").kendoDropDownList({
+            dataTextField: "text",
+            dataValueField: "value",
+            dataSource: data,
+            index: 0
+        }); 
+
+        // create DropDownList from input HTML element
+        $("#type-edit").kendoDropDownList({
+            dataTextField: "text",
+            dataValueField: "value",
+            dataSource: data
+        }); 
+
         $("#grid").kendoGrid({
-            dataSource: {
-                transport: {
-                    read: "@Url.Action("IndexAsync","Exam")",
-                    dataType: "json",
-                    type: "GET"
-                }
-            },
-            columns: [{
-                field: "Id",
-                hidden: true
-            }, {
-                field: "Name",
-                title: "Nome",
-                width: 500
-            },{
-               template: "<button id='edit' class = 'btn btn-success'>Editar</button>",
-               attributes: { "class": "text-center",}
-            },{
-               template: "<button id='delete' class = 'btn btn-danger'>Excluir</button>",
-               attributes: { "class": "text-center", }
-            }]
+                dataSource: {
+                    transport: {
+                        read: "@Url.Action("IndexAsync","Question")",
+                        dataType: "json",
+                        type: "GET"
+                    }
+                },
+                columns: [{
+                    field: "Id",
+                    hidden: true
+                }, {
+                    field: "Description",
+                    title: "Nome",
+                    width: 400
+                }, {
+                    field: "Type",
+                    title: "Tipo",
+                    width: 50            
+                },{
+                   template: "<button id='edit' class = 'btn btn-success'>Editar</button>",
+                   attributes: { "class": "text-center",}
+                },{
+                   template: "<button id='delete' class = 'btn btn-danger'>Excluir</button>",
+                   attributes: { "class": "text-center", }
+                }]
         });
+
     });
 
     $("#form-create").on("submit", function (e) {
@@ -100,12 +133,13 @@
         var grid = $("#grid").data("kendoGrid"),
             $button = $(this),
             $tr = $button.closest("tr");
-            dataItem = grid.dataItem($tr);
+            dataItem = grid.dataItem($tr);        
 
+        $("#description-edit").val(dataItem.Description);
+        $("#type-edit").data("kendoDropDownList").value(dataItem.Type);
 
-            $("#name-edit").val(dataItem.Name);
-            $("#id-edit").val(dataItem.Id);
-            $('#modal-edit').modal('show');
+        $("#id-edit").val(dataItem.Id);
+        $('#modal-edit').modal('show');
     });
 
     $("#update").on("click", function () {
@@ -116,23 +150,23 @@
             url: 'Update',
             data: data,
             success: function () {
-            atualizarGrid();
+                atualizarGrid();
             }
         });
     });
 
-    $("#grid").on("click","#delete", function () {
+    $("#grid").on("click", "#delete", function () {
         var grid = $("#grid").data("kendoGrid"),
             $button = $(this),
             $tr = $button.closest("tr");
-            dataItem = grid.dataItem($tr);
+        dataItem = grid.dataItem($tr);
 
-            $.ajax({
-                url: 'Delete/' + dataItem.Id
-            }).done(function () {
-                $tr.remove();
-                atualizarGrid();
-            });
+        $.ajax({
+            url: 'Delete/' + dataItem.Id
+        }).done(function () {
+            $tr.remove();
+            atualizarGrid();
+        });
     });
 
     var atualizarGrid = function () {

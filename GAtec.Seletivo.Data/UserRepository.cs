@@ -156,7 +156,7 @@ namespace GAtec.Seletivo.Data
                     using (var reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
-                        {
+                        {                            
                             user = new User
                             {
 
@@ -269,13 +269,14 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("SELECT MAX(ID) + 1 MAX_ID FROM GA_USER", con))
+                using (var cmd = new SqlCommand("SELECT COALESCE(MAX(ID),0) + 1 MAX_ID FROM GA_USER", con))
                 {
                     using (var reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            return (int)reader["MAX_ID"];
+                            /*return (int)reader["MAX_ID"];*/
+                            return reader.GetInt32(0);
                         }
                         else
                         {

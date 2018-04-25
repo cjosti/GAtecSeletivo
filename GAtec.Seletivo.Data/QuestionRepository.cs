@@ -40,13 +40,13 @@ namespace GAtec.Seletivo.Data
 
                 using (var cmd = new SqlCommand("UPDATE GA_QUESTION SET " +
                                                 "DESCRIPTION = @description, " +
-                                                "TYPE = @type, " +
-                                                "SCORE = @score" +
+                                                "TYPE = @type " +
+                                                //"SCORE = @score" +
                                                 "WHERE ID = @id", con))
                 {                   
                     cmd.Parameters.Add("description", SqlDbType.VarChar).Value = item.Description;
                     cmd.Parameters.Add("type", SqlDbType.Int).Value = item.Type;
-                    cmd.Parameters.Add("score", SqlDbType.Int).Value = item.Score;
+                    //cmd.Parameters.Add("score", SqlDbType.Int).Value = item.Score;
                     cmd.Parameters.Add("id", SqlDbType.Int).Value = item.Id;
 
                     cmd.ExecuteNonQuery();
@@ -89,7 +89,7 @@ namespace GAtec.Seletivo.Data
 
                                 Id = reader.GetInt32(0),
                                 Description = reader["Description"].ToString(),
-                                Type = reader.GetInt32(2),
+                                Type = (QuestionType)reader.GetInt32(2),
                                 Score = reader.GetInt32(3)
                             };
 
@@ -120,8 +120,8 @@ namespace GAtec.Seletivo.Data
                             {
                                 Id = reader.GetInt32(0),
                                 Description = reader["Description"].ToString(),
-                                Type = reader.GetInt32(2),
-                                Score = reader.GetInt32(3)
+                                Type = (QuestionType)reader["Type"]
+                                //Score = reader.GetInt32(3)
 
                             };
 

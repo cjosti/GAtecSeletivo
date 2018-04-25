@@ -37,7 +37,7 @@ namespace GAtec.Seletivo.Domain.Model
         [StringLength(11, ErrorMessage = "The length should be lower than 11.", MinimumLength = 11)]
         public string CPF { get; set; }
 
-        public UserType Type { get; set; }      
-
+        public UserType Type { get; set; }
+       
     }
 }
