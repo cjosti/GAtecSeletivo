@@ -194,6 +194,7 @@
     <Content Include="Content\js\kendo.all.min.js" />
     <Content Include="Content\kendo.common.min.css" />
     <Content Include="Content\kendo.default.min.css" />
+    <Content Include="Content\Seletivo.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />

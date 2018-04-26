@@ -2,15 +2,16 @@
 @{
     ViewBag.Title = "Question";
 }
-
+<p></p>
 <h2> Cadastro de Questões</h2>
 
 <div class="container">
-    <div class="row">
+    <div class="col-md-4"></div>
+    <div class="row col-md-8">
         <form id="form-create">
             <div class="row form-group">
                 @Html.LabelFor(model => model.Description, new { @class = "col-form-label" })
-                @Html.TextBoxFor(model => model.Description, new { @class = " form-control" })
+                @Html.TextAreaFor(model => model.Description, new { @class = " form-control" , id="description"})
             </div>
             <div class="row form-group">                
                 @Html.TextBoxFor(model => model.Type, new { @class = " form-control", id = "type" })
@@ -22,8 +23,9 @@
         </form>
     </div>
 </div>
+<p></p>
 
-<div id="grid" class="col-md-8"></div>
+<div id="grid"></div>
 
 <!-- Modal -->
 <div class="modal fade" id="modal-edit" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -41,7 +43,7 @@
                         <form id="form-edit">
                             <div class="row form-group">
                                 @Html.LabelFor(model => model.Description, new { @class = "col-form-label" })
-                                @Html.TextBoxFor(model => model.Description, new { @class = " form-control", id = "description-edit" })
+                                @Html.TextAreaFor(model => model.Description, new { @class = " form-control", id = "description-edit" })
                             </div>
                             <div class="row form-group">
                                 @Html.LabelFor(model => model.Type, new { @class = "col-form-label" })
@@ -90,8 +92,11 @@
                         read: "@Url.Action("IndexAsync","Question")",
                         dataType: "json",
                         type: "GET"
-                    }
+                    },
+                    pageSize: 20
                 },
+                height: 550,
+                
                 columns: [{
                     field: "Id",
                     hidden: true
@@ -102,13 +107,20 @@
                 }, {
                     field: "Type",
                     title: "Tipo",
-                    width: 50            
+                    width: 100,
+                    values: data
                 },{
                    template: "<button id='edit' class = 'btn btn-success'>Editar</button>",
-                   attributes: { "class": "text-center",}
+                   attributes: { "class": "text-center", },
+                   width: 100
                 },{
                    template: "<button id='delete' class = 'btn btn-danger'>Excluir</button>",
-                   attributes: { "class": "text-center", }
+                   attributes: { "class": "text-center", },
+                   width: 100
+                },{
+                    template: "<button id='answer' class = 'btn btn-dark'>Adicionar respostas</button>",
+                    attributes: { "class": "text-center", },
+                    width: 150
                 }]
         });
 
@@ -123,6 +135,7 @@
             data: data,
             success: function () {
                 atualizarGrid();
+                $("#description").val('');
             }
         });
 
