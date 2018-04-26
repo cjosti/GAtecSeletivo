@@ -11,7 +11,7 @@ using GAtec.Seletivo.Domain.Model;
 
 namespace GAtec.Seletivo.Data
 {
-    class RecruitmentRepository: IRecruitmentRepository
+    public class RecruitmentRepository: IRecruitmentRepository
     {
         public void Add(Recruitment item)
         {
@@ -116,7 +116,7 @@ namespace GAtec.Seletivo.Data
                             {
                                 Id = reader.GetInt32(0),
                                 Description = reader["Description"].ToString(),
-                                Date = reader.GetDateTime(3)
+                                Date = reader.GetDateTime(2)
 
                             };
 

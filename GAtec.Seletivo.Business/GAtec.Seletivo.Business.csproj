@@ -48,6 +48,7 @@
     <Compile Include="ExamService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuestionService.cs" />
+    <Compile Include="RecruitmentService.cs" />
     <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>

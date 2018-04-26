@@ -38,6 +38,8 @@ namespace GAtec.Seletivo.Web
             Container.RegisterType<IQuestionService, QuestionService>();
             Container.RegisterType<IUserRepository, UserRepository>();
             Container.RegisterType<IUserService, UserService>();
+            Container.RegisterType<IRecruitmentRepository, RecruitmentRepository>();
+            Container.RegisterType<IRecruitmentService, RecruitmentService>();
             Container.RegisterType<IValidationError, DefaultValidation>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(Container));
