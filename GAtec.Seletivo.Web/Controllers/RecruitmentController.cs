@@ -24,6 +24,11 @@ namespace GAtec.Seletivo.Web.Controllers
             return View();
         }
 
+        public ActionResult Teste()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult Create(Recruitment recruit)
         {
