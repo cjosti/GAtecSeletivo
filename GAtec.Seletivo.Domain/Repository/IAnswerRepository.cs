@@ -9,5 +9,6 @@ namespace GAtec.Seletivo.Domain.Repository
 {
     public interface IAnswerRepository: IBaseRepository<Answer>
     {
+        IEnumerable <Answer> GetAnswersByQuestion(object id);
     }
 }

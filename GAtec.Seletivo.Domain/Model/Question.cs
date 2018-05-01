@@ -20,6 +20,10 @@ namespace GAtec.Seletivo.Domain.Model
 
         public QuestionType Type { get; set; }
 
+        public IList<QuestionType> QuestionTypes => Enum.GetValues(typeof(QuestionType))
+                                                        .Cast<QuestionType>()
+                                                        .ToList();
+
         public int Score { get; set; }
 
         public IList<Answer> Answers { get; set; }

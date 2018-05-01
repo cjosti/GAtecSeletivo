@@ -11,7 +11,7 @@ using GAtec.Seletivo.Domain.Repository;
 
 namespace GAtec.Seletivo.Data
 {
-    class AnswerRepository: IAnswerRepository
+    public class AnswerRepository: IAnswerRepository
     {
         public void Add(Answer item)
         {
@@ -126,6 +126,40 @@ namespace GAtec.Seletivo.Data
                             };
 
                             answers.Add(answer);
+                        }
+
+                    }
+                }
+
+            }
+            return answers;
+        }
+
+        public IEnumerable<Answer> GetAnswersByQuestion(object questionId)
+        {
+            var answers = new List<Answer>();
+
+            using (var con = new SqlConnection(SeletivoSettings.connectionString))
+            {
+                con.Open();
+
+                using (var cmd = new SqlCommand("SELECT ID, DESCRIPTION, RIGHTANSWER, QUESTIONID FROM GA_ANSWER WHERE QUESTIONID = @questionId", con))
+                {
+                    cmd.Parameters.Add("questionId", SqlDbType.Int).Value = questionId;
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            var answer = new Answer
+                            {
+
+                                Id = reader.GetInt32(0),
+                                Description = reader["Description"].ToString(),
+                                RightAnswer = reader.GetBoolean(2),
+                                QuestionId = reader.GetInt32(3),
+                            };
+
                         }
 
                     }

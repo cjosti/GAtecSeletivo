@@ -18,5 +18,7 @@ namespace GAtec.Seletivo.Domain.Business
         Answer Get(int id);
 
         IEnumerable<Answer> GetAll();
+
+        IEnumerable<Answer> GetAnswersByQuestion(int id);
     }
 }

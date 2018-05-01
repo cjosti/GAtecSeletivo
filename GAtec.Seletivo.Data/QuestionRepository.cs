@@ -89,8 +89,8 @@ namespace GAtec.Seletivo.Data
 
                                 Id = reader.GetInt32(0),
                                 Description = reader["Description"].ToString(),
-                                Type = (QuestionType)reader.GetInt32(2),
-                                Score = reader.GetInt32(3)
+                                Type = (QuestionType)reader.GetInt32(2)
+                                //Score = reader.GetInt32(3)
                             };
 
                         }

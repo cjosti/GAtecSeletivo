@@ -32,6 +32,8 @@ namespace GAtec.Seletivo.Web
 
             Container = new UnityContainer();
 
+            Container.RegisterType<IAnswerRepository, AnswerRepository>();
+            Container.RegisterType<IAnswerService, AnswerService>();
             Container.RegisterType<IExamRepository, ExamRepository>();
             Container.RegisterType<IExamService, ExamService>();
             Container.RegisterType<IQuestionRepository, QuestionRepository>();

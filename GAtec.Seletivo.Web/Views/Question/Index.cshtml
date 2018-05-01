@@ -77,14 +77,14 @@
             dataValueField: "value",
             dataSource: data,
             index: 0
-        }); 
+        });
 
         // create DropDownList from input HTML element
         $("#type-edit").kendoDropDownList({
             dataTextField: "text",
             dataValueField: "value",
             dataSource: data
-        }); 
+        });
 
         $("#grid").kendoGrid({
                 dataSource: {
@@ -96,7 +96,7 @@
                     pageSize: 20
                 },
                 height: 550,
-                
+
                 columns: [{
                     field: "Id",
                     hidden: true
@@ -146,7 +146,7 @@
         var grid = $("#grid").data("kendoGrid"),
             $button = $(this),
             $tr = $button.closest("tr");
-            dataItem = grid.dataItem($tr);        
+            dataItem = grid.dataItem($tr);
 
         $("#description-edit").val(dataItem.Description);
         $("#type-edit").data("kendoDropDownList").value(dataItem.Type);
@@ -180,6 +180,18 @@
             $tr.remove();
             atualizarGrid();
         });
+    });
+
+    $("#grid").on("click", "#answer", function () {
+        var grid = $("#grid").data("kendoGrid"),
+            $button = $(this),
+            $tr = $button.closest("tr");
+        dataItem = grid.dataItem($tr);
+        
+        var url = '@Url.Action("Details", "Answer", new { id = "__id__" })';
+        window.location.href = url.replace('__id__', dataItem.Id);
+
+        @*document.location = '@Url.Action("Details","Answer")';*@
     });
 
     var atualizarGrid = function () {
