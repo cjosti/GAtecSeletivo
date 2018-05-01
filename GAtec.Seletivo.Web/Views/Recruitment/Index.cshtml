@@ -16,7 +16,7 @@
 
             <div class="row form-group">
                 @Html.LabelFor(model => model.Date, new { @class = "col-form-label" })
-                <input id="datetimepicker" title="datetimepicker" style="width: 100%;" />
+                @Html.TextBoxFor(model => model.Date, new { @class = "form-control datetimepicker", title = "datetimepicker" })
             </div>
 
             <button type="submit" id="create" class="btn btn-info">
@@ -26,7 +26,7 @@
     </div>
 </div>
 
-<div id="grid" class="col-md-8"></div>
+<div id="grid"></div>
 
 <!-- Modal -->
 <div class="modal fade" id="modal-edit" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -44,7 +44,11 @@
                         <form id="form-edit">
                             <div class="row form-group">
                                 @Html.LabelFor(model => model.Description, new { @class = "col-form-label" })
-                                @Html.LabelFor(model => model.Date, new { @class = "col-form-label" })
+                                @Html.TextAreaFor(model => model.Description, new { @class = " form-control", id = "description-edit" })
+                            </div>
+                            <div class="row form-group">
+                                @Html.LabelFor(model => model.Date, new { @class = "col-form-label", id = "date-edit" })
+                                @Html.TextBoxFor(model => model.Date, new { @class = "form-control datetimepicker", title = "datetimepicker", id="date-edit" })
                                 @Html.HiddenFor(model => model.Id, new { id = "id-edit" })
                             </div>
                         </form>
@@ -63,9 +67,11 @@
 
     $(document).ready(function () {
 
-        $("#datetimepicker").kendoDateTimePicker({
+        $(".datetimepicker").kendoDateTimePicker({
             value: new Date(),
-            dateInput: true
+            dateInput: true,
+            format: "dd/MM/yyyy hh:mm:00"
+            //parseFormats: ["dd-MM-yyyyThh24:mm:ss"]
         });
 
         $("#grid").kendoGrid({
@@ -73,8 +79,18 @@
                 transport: {
                     read: "@Url.Action("IndexAsync","Recruitment")",
                     dataType: "json",
-                    type: "GET"
-                }
+                    type: "GET",
+                    schema: {
+                        parse: function (data) {
+                            var res = [];
+                            $.each(data, function (idx, elem) {
+                                res.push({ date: new Date(elem.date.time) });
+                            });
+                            return res;
+                        }
+                    }
+                },
+                pageSize: 20
             },
             columns: [{
                 field: "Id",
@@ -82,20 +98,26 @@
             }, {
                 field: "Description",
                 title: "Descrição",
-                width: 250
+                width: 300
             }, {
+
                 field: "Date",
                 title: "Data",
                 width: 200,
-                //template: "#= kendo.toString(ProdMod, \"MM/dd/yyyy hh:mm tt\") #"
-                //format:"{0:MM/dd/yyyy}",
-                //template:"<a>#=(null == DateField? '' : DateField) #</a>"
+                type: 'date',
+                template: '#= kendo.toString(Date, "dd/MM/yyyyThh:mm:ss") #'
             }, {
                 template: "<button id='edit' class = 'btn btn-success'>Editar</button>",
-                attributes: { "class": "text-center", }
+                attributes: { "class": "text-center", },
+                width: 100
             }, {
                 template: "<button id='delete' class = 'btn btn-danger'>Excluir</button>",
-                attributes: { "class": "text-center", }
+                attributes: { "class": "text-center", },
+                width: 100
+            }, {
+                template: "<button id='answer' class = 'btn btn-dark'>Adicionar exames</button>",
+                attributes: { "class": "text-center", },
+                width: 150
             }]
 
         });
@@ -122,8 +144,9 @@
             $tr = $button.closest("tr");
         dataItem = grid.dataItem($tr);
 
+        $("#description-edit").val(dataItem.Description);
+        $("#date-edit").val(dataItem.Date);
 
-        $("#name-edit").val(dataItem.Name);
         $("#id-edit").val(dataItem.Id);
         $('#modal-edit').modal('show');
     });
