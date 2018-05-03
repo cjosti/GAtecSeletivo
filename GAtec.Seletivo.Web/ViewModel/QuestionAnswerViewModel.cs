@@ -9,6 +9,6 @@ namespace GAtec.Seletivo.Web.ViewModel
     public class QuestionAnswerViewModel
     {
         public Question Question { get; set; }
-        public IList<Answer> Answers { get; set; }
+        public Answer Answer { get; set; }
     }
 }

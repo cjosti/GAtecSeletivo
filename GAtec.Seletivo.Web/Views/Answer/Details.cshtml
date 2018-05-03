@@ -3,4 +3,193 @@
     ViewBag.Title = "Question";
 }
 <p></p>
-<h2>@Model.Question.Description</h2>
+<h4>@Model.Question.Description</h4>
+
+<div class="container">
+    <div class="col-md-4"></div>
+    <div class="row col-md-8">
+        <form id="form-create">
+            <div class="row form-group">
+                @Html.LabelFor(model => model.Answer.Description, new { @class = "col-form-label" })
+                @Html.TextAreaFor(model => model.Answer.Description, new { @class = " form-control", id = "description" })
+            </div>
+            <div class="row form-group">
+                @Html.LabelFor(model => model.Answer.RightAnswer, new { @class = "col-form-label" })
+                @Html.TextBoxFor(model => model.Answer.RightAnswer, new { @class = " form-control", id = "rightAnswer" })
+
+            </div>
+            @Html.TextBoxFor(model => model.Answer.QuestionId, new { style = "display:none", id = "questionId", @Value = Model.Question.Id })
+
+            <button type="submit" id="create" class="btn btn-info">
+                Cadastrar
+            </button>
+        </form>
+    </div>
+</div>
+<p></p>
+
+<div id="grid"></div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-edit" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Editar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <form id="form-edit">
+                            <div class="row form-group">
+                                @Html.LabelFor(model => model.Answer.Description, new { @class = "col-form-label" })
+                                @Html.TextAreaFor(model => model.Answer.Description, new { @class = " form-control", id = "description-edit" })
+                            </div>
+                            <div class="row form-group">
+                                @Html.LabelFor(model => model.Answer.RightAnswer, new { @class = "col-form-label" })
+                                @Html.TextBoxFor(model => model.Answer.RightAnswer, new { @class = " form-control", id = "rightAnswer-edit" })
+
+                            </div>
+                            @Html.TextBoxFor(model => model.Answer.QuestionId, new { style = "display:none", id = "questionId-edit", @Value = Model.Question.Id })
+                            @Html.HiddenFor(model => model.Answer.Id, new { id = "id-edit"})
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>
+                <button id="update" type="button" class="btn btn-primary">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    $(document).ready(function () {
+
+        var data = [
+            { text: "Sim", value: true },
+            { text: "Nao", value: false }
+        ];
+
+        // create DropDownList from input HTML element
+        $("#rightAnswer").kendoDropDownList({
+            dataTextField: "text",
+            dataValueField: "value",
+            dataSource: data,
+            index: 0
+        });
+
+        // create DropDownList from input HTML element
+        $("#rightAnswer-edit").kendoDropDownList({
+            dataTextField: "text",
+            dataValueField: "value",
+            dataSource: data
+        });
+
+        $("#grid").kendoGrid({
+                dataSource: {
+                    transport: {
+                        read: "@Url.Action("IndexAsync","Answer")",
+                        dataType: "json",
+                        type: "GET"
+                    },
+                    pageSize: 20
+                },
+                height: 550,
+
+                columns: [{
+                    field: "Id",
+                    hidden: true
+                }, {
+                    field: "Description",
+                    title: "Resposta",
+                    width: 400
+                }, {
+                    field: "RightAnswer",
+                    title: "Certa?",
+                    width: 100,
+                    values: data
+                },{
+                   template: "<button id='edit' class = 'btn btn-success'>Editar</button>",
+                   attributes: { "class": "text-center", },
+                   width: 100
+                },{
+                   template: "<button id='delete' class = 'btn btn-danger'>Excluir</button>",
+                   attributes: { "class": "text-center", },
+                   width: 100
+                }]
+        });
+
+    });
+
+    $("#form-create").on("submit", function (e) {
+        var data = $("#form-create").serialize();
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Create", "Answer")',
+            data: data,
+            success: function () {
+               atualizarGrid();
+                $("#description").val('');
+            }
+        });
+
+        e.preventDefault();
+    });
+
+    $("#grid").on("click", "#delete", function () {
+        var grid = $("#grid").data("kendoGrid"),
+            $button = $(this),
+            $tr = $button.closest("tr");
+        dataItem = grid.dataItem($tr);
+
+        var url = '@Url.Action("Delete", "Answer", new { id = "__id__" })';
+
+        $.ajax({
+            url: url.replace('__id__', dataItem.Id)
+        }).done(function () {
+            $tr.remove();
+            atualizarGrid();
+        });
+    });
+
+    $("#grid").on("click", "#edit", function () {
+        var grid = $("#grid").data("kendoGrid"),
+            $button = $(this),
+            $tr = $button.closest("tr");
+        dataItem = grid.dataItem($tr);   
+
+        $("#description-edit").val(dataItem.Description);
+        $("#rightAnswer-edit").data("kendoDropDownList").value(dataItem.RightAnswer);
+
+        $("#id-edit").val(dataItem.Id);
+        $('#modal-edit').modal('show');
+    });
+
+    $("#update").on("click", function () {
+        var data = $("#form-edit").serialize();
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Update", "Answer")',
+            data: data,
+            success: function () {
+                atualizarGrid();
+            }
+        });
+    });
+
+    var atualizarGrid = function () {
+        var grid = $("#grid").data("kendoGrid");
+        grid.dataSource.read();
+    };
+
+
+</script>

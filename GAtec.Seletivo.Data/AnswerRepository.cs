@@ -20,10 +20,10 @@ namespace GAtec.Seletivo.Data
                 con.Open();
 
                 using (var cmd = new SqlCommand("INSERT INTO GA_ANSWER(DESCRIPTION, RIGHTANSWER, QUESTIONID) " +
-                                                "VALUES (@description, @questionId, @rightAnswer)", con))
+                                                "VALUES (@description,  @rightAnswer, @questionId)", con))
                 {
                     cmd.Parameters.Add("description", SqlDbType.NVarChar).Value = item.Description;                    
-                    cmd.Parameters.Add("rightAnswer", SqlDbType.Int).Value = item.RightAnswer;
+                    cmd.Parameters.Add("rightAnswer", SqlDbType.Int).Value = Convert.ToInt32(item.RightAnswer);
                     cmd.Parameters.Add("questionId", SqlDbType.Int).Value = item.QuestionId;
 
                     cmd.ExecuteNonQuery();
@@ -40,12 +40,12 @@ namespace GAtec.Seletivo.Data
 
                 using (var cmd = new SqlCommand("UPDATE GA_ANSWER SET " +
                                                 "DESCRIPTION = @description, " +
-                                                "RIGTHANSWER = @rightAnswer," +
-                                                "QUESTIONID = @questionId," +
+                                                "RIGHTANSWER = @rightAnswer," +
+                                                "QUESTIONID = @questionId " +
                                                 "WHERE ID = @id", con))
                 {
                     cmd.Parameters.Add("description", SqlDbType.NVarChar).Value = item.Description;
-                    cmd.Parameters.Add("rightAnswer", SqlDbType.Int).Value = item.RightAnswer;
+                    cmd.Parameters.Add("rightAnswer", SqlDbType.Int).Value = Convert.ToInt32(item.RightAnswer);
                     cmd.Parameters.Add("questionId", SqlDbType.Int).Value = item.QuestionId;
                     cmd.Parameters.Add("id", SqlDbType.Int).Value = item.Id;
 

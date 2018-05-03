@@ -127,8 +127,7 @@
     });
 
     $("#form-create").on("submit", function (e) {
-        var data = $("#form-create").serialize();
-
+        var data = $("#form-create").serialize();   
         $.ajax({
             type: "POST",
             url: 'Create',
@@ -191,7 +190,6 @@
         var url = '@Url.Action("Details", "Answer", new { id = "__id__" })';
         window.location.href = url.replace('__id__', dataItem.Id);
 
-        @*document.location = '@Url.Action("Details","Answer")';*@
     });
 
     var atualizarGrid = function () {
