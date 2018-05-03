@@ -79,9 +79,9 @@ namespace GAtec.Seletivo.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult IndexAsync()
+        public ActionResult IndexAsync(int id)
         {
-            var answers = _answerService.GetAll();
+            var answers = _answerService.GetAnswersByQuestion(id);
 
             return Json(answers, JsonRequestBehavior.AllowGet);
         }

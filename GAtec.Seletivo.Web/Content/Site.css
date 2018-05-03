@@ -55,3 +55,11 @@ textarea {
 #form-main {
     background-color: blue;
 }
+
+a:link {
+    color: black;
+}
+
+a:visited {
+    color: black;
+}

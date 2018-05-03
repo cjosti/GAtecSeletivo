@@ -23,9 +23,16 @@
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
-                <li class="nav-item">@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })</li>
-                <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })</li>
+                @if (User.IsInRole("Candidato"))
+    {
+            <li class="nav-item">@Html.ActionLink("Provas", "Index", "Home", null, new { @class = "nav-link" })</li>
+}
+else
+{
+            <li class="nav-item">@Html.ActionLink("Exames", "Index", "Exam", null, new { @class = "nav-link" })</li>
+            <li class="nav-item">@Html.ActionLink("Questões", "Index", "Question", null, new { @class = "nav-link" })</li>
+}
+               
             </ul>
         </div>
 
@@ -33,17 +40,20 @@
             <ul class="nav navbar-nav">
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <li class="pull-right">@Html.ActionLink("Logout", "Logout", "Login")</li>
-                    <li class="pull-right margin-top-15">
+                    
+                    <li class="pull-right nav-item">
                         <i class="pull-right glyphicon glyphicon-user text-white"></i>
-                        <span class="text-white" style="padding-right: 5px;">
+                        <span class="text-white nav-link" style="padding-right: 5px;">
                             @User.Identity.Name
                         </span>
                     </li>
+
+                    <li class="pull-right nav-item">@Html.ActionLink("Logout", "Logout", "Login", null, new { @class = "nav-link" })</li>
                 }
                 else
                 {
-                    <li class="pull-right">@Html.ActionLink("LogIn", "Index", "Login", null, new { @class = "nav-link" })</li>
+                    <li></li>
+                    <li class="pull-right nav-item">@Html.ActionLink("LogIn", "Index", "Login",null, new { @class = "nav-link" })</li>
                 }
 
             </ul>

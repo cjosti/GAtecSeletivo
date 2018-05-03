@@ -149,7 +149,7 @@ namespace GAtec.Seletivo.Data
 
                     using (var reader = cmd.ExecuteReader())
                     {
-                        if (reader.Read())
+                        while (reader.Read())
                         {
                             var answer = new Answer
                             {
@@ -159,6 +159,8 @@ namespace GAtec.Seletivo.Data
                                 RightAnswer = reader.GetBoolean(2),
                                 QuestionId = reader.GetInt32(3),
                             };
+
+                            answers.Add(answer);
 
                         }
 

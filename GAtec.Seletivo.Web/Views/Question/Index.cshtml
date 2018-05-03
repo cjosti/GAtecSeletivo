@@ -3,7 +3,7 @@
     ViewBag.Title = "Question";
 }
 <p></p>
-<h2> Cadastro de Questões</h2>
+<h3> Cadastro de Questões</h3>
 
 <div class="container">
     <div class="col-md-4"></div>
@@ -127,10 +127,10 @@
     });
 
     $("#form-create").on("submit", function (e) {
-        var data = $("#form-create").serialize();   
+        var data = $("#form-create").serialize();
         $.ajax({
             type: "POST",
-            url: 'Create',
+            url: '@Url.Action("Create","Question")',
             data: data,
             success: function () {
                 atualizarGrid();
@@ -159,7 +159,7 @@
 
         $.ajax({
             type: "POST",
-            url: 'Update',
+            url: '@Url.Action("Update","Question")',
             data: data,
             success: function () {
                 atualizarGrid();
@@ -172,9 +172,11 @@
             $button = $(this),
             $tr = $button.closest("tr");
         dataItem = grid.dataItem($tr);
+       
+        var url = '@Url.Action("Delete", "Question", new { id = "__id__" })';       
 
         $.ajax({
-            url: 'Delete/' + dataItem.Id
+            url: url.replace('__id__', dataItem.Id)
         }).done(function () {
             $tr.remove();
             atualizarGrid();
@@ -186,7 +188,7 @@
             $button = $(this),
             $tr = $button.closest("tr");
         dataItem = grid.dataItem($tr);
-        
+
         var url = '@Url.Action("Details", "Answer", new { id = "__id__" })';
         window.location.href = url.replace('__id__', dataItem.Id);
 
