@@ -24,15 +24,16 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 @if (User.IsInRole("Candidato"))
-    {
-            <li class="nav-item">@Html.ActionLink("Provas", "Index", "Home", null, new { @class = "nav-link" })</li>
-}
-else
-{
-            <li class="nav-item">@Html.ActionLink("Exames", "Index", "Exam", null, new { @class = "nav-link" })</li>
-            <li class="nav-item">@Html.ActionLink("Questões", "Index", "Question", null, new { @class = "nav-link" })</li>
-}
-               
+                {
+                    <li class="nav-item">@Html.ActionLink("Provas", "Index", "Home", null, new { @class = "nav-link" })</li>
+                }
+                else
+                {
+                    <li class="nav-item">@Html.ActionLink("Recrutamento", "Index", "Recruitment", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Exames", "Index", "Exam", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Questões", "Index", "Question", null, new { @class = "nav-link" })</li>
+                }
+
             </ul>
         </div>
 
@@ -40,7 +41,7 @@ else
             <ul class="nav navbar-nav">
                 @if (User.Identity.IsAuthenticated)
                 {
-                    
+
                     <li class="pull-right nav-item">
                         <i class="pull-right glyphicon glyphicon-user text-white"></i>
                         <span class="text-white nav-link" style="padding-right: 5px;">
@@ -53,7 +54,7 @@ else
                 else
                 {
                     <li></li>
-                    <li class="pull-right nav-item">@Html.ActionLink("LogIn", "Index", "Login",null, new { @class = "nav-link" })</li>
+                    <li class="pull-right nav-item">@Html.ActionLink("LogIn", "Index", "Login", null, new { @class = "nav-link" })</li>
                 }
 
             </ul>

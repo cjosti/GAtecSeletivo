@@ -18,5 +18,9 @@ namespace GAtec.Seletivo.Domain.Business
         Exam Get(int id);
 
         IEnumerable<Exam> GetAll();
+
+        IEnumerable<Exam> GetExamByRecruitment(int id);
+
+        IEnumerable<Exam> GetExamList();
     }
 }

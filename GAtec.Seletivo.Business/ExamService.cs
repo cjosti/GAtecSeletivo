@@ -81,6 +81,20 @@ namespace GAtec.Seletivo.Business
             return exams;
         }
 
+        public IEnumerable<Exam> GetExamByRecruitment(int id)
+        {
+            var exam = ExamRepository.GetExamByRecruitment(id);
+
+            return exam;
+        }
+
+        public IEnumerable<Exam> GetExamList()
+        {
+            var exam = ExamRepository.GetExamList();
+
+            return exam;
+        }
+
     }
 
 }

@@ -12,6 +12,8 @@ namespace GAtec.Seletivo.Domain.Model
 
         public string Name { get; set; }
 
+        public int ExamId { get; set; }
+
         public IList<Question> Questions { get; set; }
     }
 }

@@ -11,7 +11,7 @@ using GAtec.Seletivo.Domain.Repository;
 
 namespace GAtec.Seletivo.Data
 {
-    public class ExamRepository: IExamRepository
+    public class ExamRepository : IExamRepository
     {
         public void Add(Exam item)
         {
@@ -113,6 +113,46 @@ namespace GAtec.Seletivo.Data
                                 Id = reader.GetInt32(0),
                                 Name = reader["Name"].ToString()
 
+                            };
+
+                            exams.Add(exam);
+                        }
+
+                    }
+                }
+
+            }
+            return exams;
+        }
+
+        public IEnumerable<Exam> GetExamByRecruitment(object recruitmentId)
+        {
+            return null;
+        }
+
+        public IEnumerable<Exam> GetExamList()
+        {
+            string query;
+            var exams = new List<Exam>();
+
+            using (var con = new SqlConnection(SeletivoSettings.connectionString))
+            {
+                con.Open();
+
+                query = " SELECT E.ID AS ID_EXAM, E.NAME AS DSC_EXAM, RE.RECRUITID AS ID_RECRUIT  FROM GA_EXAM E ";
+                query = query + "  INNER JOIN GA_RECRUITMENT_EXAM RE ON RE.EXAMID = E.ID";
+
+                using (var cmd = new SqlCommand(query, con))
+                {
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var exam = new Exam
+                            {
+                                Id = reader.GetInt32(0),
+                                Name = reader["DSC_EXAM"].ToString(),
+                                ExamId = reader.GetInt32(2)
                             };
 
                             exams.Add(exam);

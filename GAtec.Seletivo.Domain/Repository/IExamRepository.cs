@@ -9,5 +9,8 @@ namespace GAtec.Seletivo.Domain.Repository
 {
     public interface IExamRepository: IBaseRepository<Exam>
     {
+        IEnumerable<Exam> GetExamByRecruitment(object id);
+
+        IEnumerable<Exam> GetExamList();
     }
 }

@@ -11,7 +11,7 @@ using GAtec.Seletivo.Domain.Model;
 
 namespace GAtec.Seletivo.Data
 {
-    public class RecruitmentRepository: IRecruitmentRepository
+    public class RecruitmentRepository : IRecruitmentRepository
     {
         public void Add(Recruitment item)
         {
@@ -24,7 +24,7 @@ namespace GAtec.Seletivo.Data
                 {
                     cmd.Parameters.Add("description", SqlDbType.VarChar).Value = item.Description;
                     cmd.Parameters.Add("date", SqlDbType.DateTime).Value = item.Date;
-               
+
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -128,6 +128,11 @@ namespace GAtec.Seletivo.Data
 
             }
             return recruitments;
+        }
+
+        public IEnumerable<Exam> GetExamList()
+        {
+            return null;
         }
     }
 }
