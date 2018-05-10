@@ -3,67 +3,69 @@
 @{
     ViewBag.Title = "Recruitment";
 }
-
-<h2> Cadastro de Recrutamento</h2>
+<p></p>
+<h3> Cadastro de Recrutamento</h3>
 
 <div class="container">
-    <div class="row">
-        <form id="form-create">
-            <div class="row form-group">
-                @Html.LabelFor(model => model.Description, new { @class = "col-form-label" })
-                @Html.TextBoxFor(model => model.Description, new { @class = " form-control" })
-            </div>
+    <div class="col-md-4"></div>
+        <div class="row col-md-8">
+            <form id="form-create">
+                <div class="row form-group">
+                    @Html.LabelFor(model => model.Description, new { @class = "col-form-label" })
+                    @Html.TextBoxFor(model => model.Description, new { @class = " form-control" })
+                </div>
 
-            <div class="row form-group">
-                @Html.LabelFor(model => model.Date, new { @class = "col-form-label" })
-                @Html.TextBoxFor(model => model.Date, new { @class = "form-control datetimepicker", title = "datetimepicker" })
-            </div>
+                <div class="row form-group">
+                    @Html.LabelFor(model => model.Date, new { @class = "col-form-label" })             
+                    @Html.TextBoxFor(model => model.Date, new { @class = "form-control datetimepicker", title = "datetimepicker" })
+                </div>
 
-            <button type="submit" id="create" class="btn btn-info">
-                Cadastrar
-            </button>
-        </form>
-    </div>
-</div>
-
-<div id="grid"></div>
-
-<!-- Modal -->
-<div class="modal fade" id="modal-edit" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Editar</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                <button type="submit" id="create" class="btn btn-info">
+                    Cadastrar
                 </button>
-            </div>
-            <div class="modal-body">
-                <div class="container">
-                    <div class="row">
-                        <form id="form-edit">
-                            <div class="row form-group">
-                                @Html.LabelFor(model => model.Description, new { @class = "col-form-label" })
-                                @Html.TextAreaFor(model => model.Description, new { @class = " form-control", id = "description-edit" })
-                            </div>
-                            <div class="row form-group">
-                                @Html.LabelFor(model => model.Date, new { @class = "col-form-label", id = "date-edit" })
-                                @Html.TextBoxFor(model => model.Date, new { @class = "form-control datetimepicker", title = "datetimepicker", id="date-edit" })
-                                @Html.HiddenFor(model => model.Id, new { id = "id-edit" })
-                            </div>
-                        </form>
+            </form>
+        </div>
+    </div>
+<p></p>
+
+    <div id="grid"></div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal-edit" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Editar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <form id="form-edit">
+                                <div class="row form-group">
+                                    @Html.LabelFor(model => model.Description, new { @class = "col-form-label" })
+                                    @Html.TextAreaFor(model => model.Description, new { @class = " form-control", id = "description-edit" })
+                                </div>
+                                <div class="row form-group">
+                                    @Html.LabelFor(model => model.Date, new { @class = "col-form-label", id = "date-edit" })
+                                    @Html.TextBoxFor(model => model.Date, new { @class = "form-control datetimepicker", title = "datetimepicker", id = "date-edit" })
+                                    @Html.HiddenFor(model => model.Id, new { id = "id-edit" })
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>
-                <button id="update" type="button" class="btn btn-primary">Salvar</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>
+                    <button id="update" type="button" class="btn btn-primary">Salvar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
+    <script>
 
     $(document).ready(function () {
 
@@ -128,7 +130,7 @@
 
         $.ajax({
             type: "POST",
-            url: 'Create',
+            url: '@Url.Action("Create","Recruitment")',
             data: data,
             success: function () {
                 atualizarGrid();
@@ -156,7 +158,7 @@
 
         $.ajax({
             type: "POST",
-            url: 'Update',
+            url: '@Url.Action("Update","Recruitment")',
             data: data,
             success: function () {
                 atualizarGrid();
@@ -170,8 +172,10 @@
             $tr = $button.closest("tr");
         dataItem = grid.dataItem($tr);
 
+        var url = "@Url.Action("Delete","Recruitment")"
+
         $.ajax({
-            url: 'Delete/' + dataItem.Id
+            url: url + '/' + dataItem.Id
         }).done(function () {
             $tr.remove();
             atualizarGrid();
@@ -183,4 +187,4 @@
         grid.dataSource.read();
     };
 
-</script>
+    </script>

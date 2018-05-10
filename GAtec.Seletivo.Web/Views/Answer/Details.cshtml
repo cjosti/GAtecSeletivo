@@ -92,13 +92,12 @@
             dataSource: data
         });
 
-        var url = '@Url.Action("IndexAsync","Answer", new { id = "__id__"})';
-        var questionId = $("#questionId").val();        
+        var url = '@Url.Action("IndexAsync","Answer")';    
 
         $("#grid").kendoGrid({
                 dataSource: {
                     transport: {
-                        read: url.replace('__id__', questionId),
+                        read: url + '/' + $("#questionId").val(),
                         dataType: "json",
                         type: "GET"
                     },
@@ -153,10 +152,10 @@
             $tr = $button.closest("tr");
         dataItem = grid.dataItem($tr);
 
-        var url = '@Url.Action("Delete", "Answer", new { id = "__id__" })';
+        var url = '@Url.Action("Delete", "Answer")';
 
         $.ajax({
-            url: url.replace('__id__', dataItem.Id)
+            url: url + '/' + dataItem.Id
         }).done(function () {
             $tr.remove();
             atualizarGrid();

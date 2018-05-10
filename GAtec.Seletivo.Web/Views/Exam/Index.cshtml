@@ -129,9 +129,9 @@
             $tr = $button.closest("tr");
             dataItem = grid.dataItem($tr);
 
-            var url = '@Url.Action("Delete","Exam", new { id = "__id__"})';
+            var url = '@Url.Action("Delete","Exam")';
             $.ajax({
-                url: url.replace('__id__', dataItem.Id)
+                url: url + '/' + dataItem.Id
             }).done(function () {
                 $tr.remove();
                 atualizarGrid();

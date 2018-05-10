@@ -173,10 +173,10 @@
             $tr = $button.closest("tr");
         dataItem = grid.dataItem($tr);
        
-        var url = '@Url.Action("Delete", "Question", new { id = "__id__" })';       
+        var url = '@Url.Action("Delete", "Question")';       
 
         $.ajax({
-            url: url.replace('__id__', dataItem.Id)
+            url: url + '/' + dataItem.Id
         }).done(function () {
             $tr.remove();
             atualizarGrid();
@@ -189,8 +189,8 @@
             $tr = $button.closest("tr");
         dataItem = grid.dataItem($tr);
 
-        var url = '@Url.Action("Details", "Answer", new { id = "__id__" })';
-        window.location.href = url.replace('__id__', dataItem.Id);
+        var url = '@Url.Action("Details", "Answer")';
+        window.location.href = url + '/' + dataItem.Id;
 
     });
 
