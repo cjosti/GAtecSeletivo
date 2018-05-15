@@ -21,11 +21,11 @@ body {
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
+/*input,
 select,
 textarea {
     max-width: 280px;
-}
+}*/
 
 .reset {
     padding-top: 0;
@@ -186,3 +186,18 @@ a:visited {
     background-color: rgb(0,36,52);
 }
 
+.text-gatec {
+    color: rgb(0,36,52);
+}
+
+#form-edit{
+    padding: 10px;
+}
+
+.modal-header{
+    background-color: rgb(241, 241, 241);
+}
+
+.container {
+    padding-bottom: 5px;
+}

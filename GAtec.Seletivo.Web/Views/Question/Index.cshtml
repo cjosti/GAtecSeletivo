@@ -3,17 +3,16 @@
     ViewBag.Title = "Question";
 }
 <p></p>
-<h3> Cadastro de Questões</h3>
+<h4> Cadastro de Questões</h4>
 
-<div class="container">
-    <div class="col-md-4"></div>
-    <div class="row col-md-8">
+<div class="container border rounded">
+    <div class="col-md-8">
         <form id="form-create">
-            <div class="row form-group">
+            <div class="form-group">
                 @Html.LabelFor(model => model.Description, new { @class = "col-form-label" })
                 @Html.TextAreaFor(model => model.Description, new { @class = " form-control" , id="description"})
             </div>
-            <div class="row form-group">                
+            <div class="form-group">                
                 @Html.TextBoxFor(model => model.Type, new { @class = " form-control", id = "type" })
                 
             </div>
@@ -38,21 +37,16 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="container">
-                    <div class="row">
-                        <form id="form-edit">
-                            <div class="row form-group">
-                                @Html.LabelFor(model => model.Description, new { @class = "col-form-label" })
-                                @Html.TextAreaFor(model => model.Description, new { @class = " form-control", id = "description-edit" })
-                            </div>
-                            <div class="row form-group">
-                                @Html.LabelFor(model => model.Type, new { @class = "col-form-label" })
-                                @Html.TextBoxFor(model => model.Type, new { @class = " form-control", id = "type-edit" })
-                                @Html.HiddenFor(model => model.Id, new { id = "id-edit" })
-                            </div>                            
-                        </form>
+                <form id="form-edit">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Description, new { @class = "col-form-label" })
+                        @Html.TextAreaFor(model => model.Description, new { @class = " form-control", id = "description-edit" })
                     </div>
-                </div>
+                    <div class="form-group">                       
+                        @Html.TextBoxFor(model => model.Type, new { @class = " form-control", id = "type-edit" })
+                        @Html.HiddenFor(model => model.Id, new { id = "id-edit" })
+                    </div>                            
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>
