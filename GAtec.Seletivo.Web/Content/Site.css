@@ -69,14 +69,14 @@ a:visited {
     padding: 40px 40px;
 }
 
-.btn {
+/*.btn {
     font-weight: 700;
     height: 36px;
     -moz-user-select: none;
     -webkit-user-select: none;
     user-select: none;
     cursor: default;
-}
+}*/
 
 /*
  * Card component
@@ -161,9 +161,7 @@ a:visited {
 }
 
 .btn.btn-signin {
-    /*background-color: #4d90fe; */
     background-color: rgb(104, 145, 162);
-    /* background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/
     padding: 0px;
     font-weight: 700;
     font-size: 14px;
@@ -184,12 +182,7 @@ a:visited {
         background-color: rgb(12, 97, 33);
     }
 
-.forgot-password {
-    color: rgb(104, 145, 162);
+.bg-blue-gatec {
+    background-color: rgb(0,36,52);
 }
 
-    .forgot-password:hover,
-    .forgot-password:active,
-    .forgot-password:focus {
-        color: rgb(12, 97, 33);
-    }
