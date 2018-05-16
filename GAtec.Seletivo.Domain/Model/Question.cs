@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace GAtec.Seletivo.Domain.Model
 {
@@ -16,6 +17,7 @@ namespace GAtec.Seletivo.Domain.Model
     {
         public int Id { get; set; }
 
+        [Display(Name = "Questão:")]
         public string Description { get; set; }
 
         public QuestionType Type { get; set; }
