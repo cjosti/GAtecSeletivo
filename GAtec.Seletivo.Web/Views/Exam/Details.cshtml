@@ -229,9 +229,17 @@
         });
 
         $("#salvar").on("click", function () {
-             var multiSelect = $("#multiselect").data("kendoMultiSelect").value();
-             console.log(multiSelect);
-           
+            var examId = $("#multiselect").data("kendoMultiSelect").value();
+            var questionId = $("#questionId").val();
+
+             $.ajax({
+                 type: "POST",
+                 url: '@Url.Action("AddExamQuestion", "Exam")',
+                 datatype: "json",
+                 traditional: true,
+                 data: { questionId: questionId, examId: examId }
+             });
+
          });
     </script>
     <style>

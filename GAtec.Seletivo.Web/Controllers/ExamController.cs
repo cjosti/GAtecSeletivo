@@ -85,5 +85,20 @@ namespace GAtec.Seletivo.Web.Controllers
             return View("Details", viewModel);
         }
 
+        public ActionResult AddExamQuestion(int questionId, int[] examId)
+        {
+            if (questionId == 0)
+                return HttpNotFound();
+            if (examId == null)
+                return HttpNotFound();
+
+            foreach (int id in examId)
+            {
+                _examService.AddExamQuestion(id, questionId);
+            }
+
+            return View();
+        }
+
     }
 }
