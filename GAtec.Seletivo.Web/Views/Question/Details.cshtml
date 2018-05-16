@@ -1,47 +1,64 @@
-﻿@model GAtec.Seletivo.Web.ViewModel.ExamQuestionViewModel
+﻿
 @{
     ViewBag.Title = "Details";
 }
 
-<p></p>
-<h4 class="text-gatec">@Model.Question.Description</h4>
-<p></p>
-<div class="container border rounded">
-    <p></p>
+<h2>Details</h2>
+<div id="example">
     <div class="demo-section k-content">
         <div id="dialog">
             <div class="dialogContent">
-                @*<input id="filterText" type="text" placeholder="Procurar Exames" />*@
+                <input id="filterText" type="text" placeholder="Search categories" />
                 <div class="selectAll">
                     <input type="checkbox" id="chbAll" class="k-checkbox" onchange="chbAllOnChange()" />
-                    <label class="k-checkbox-label" for="chbAll">Selecionar todos</label>
-                    <span id="result">0 exames selecionados</span>
+                    <label class="k-checkbox-label" for="chbAll">Select All</label>
+                    <span id="result">0 categories selected</span>
                 </div>
-                @Html.TextBoxFor(model => model.Question.Id, new { style = "display:none", id = "questionId", @Value = Model.Question.Id })
-
                 <div id="treeview"></div>
             </div>
         </div>
         <select id="multiselect"></select>
         <br />
-        <button id="openWindow">Selecionar Exames</button>
-        <button id="salvar" class="btn btn-primary">Salvar</button>
+        <button id="openWindow" class="k-primary">SELECT CATEGORIES</button>
     </div>
     <script>
-
-        var url = '@Url.Action("IndexAsync","Exam")';
-
-        var dataSource = new kendo.data.HierarchicalDataSource({
-            transport: {
-                read: url,
-                dataType: "json",
-                type: "GET"
+        var myDataSource = new kendo.data.HierarchicalDataSource({
+            data: [{
+                id: 1, text: "Furniture", expanded: true, items: [
+                    { id: 2, text: "tables & chairs" },
+                    { id: 3, text: "sofas" },
+                    { id: 4, text: "occasional furniture" },
+                    { id: 5, text: "childrens furniture" },
+                    { id: 6, text: "beds" }
+                ]
+            },
+                {
+                    id: 7, text: "Decor", expanded: true, items: [
+                       { id: 8, text: "bed linen" },
+                       { id: 9, text: "throws" },
+                       { id: 10, text: "curtains & blinds" },
+                       { id: 11, text: "rugs" },
+                       { id: 12, text: "carpets" }
+                    ]
+                },
+                {
+                    id: 13, text: "Storage", expanded: true, items: [
+                       { id: 14, text: "wall shelving" },
+                       { id: 15, text: "kids storage" },
+                       { id: 16, text: "multimedia storage" },
+                       { id: 17, text: "floor shelving" },
+                       { id: 18, text: "toilet roll holders" },
+                       { id: 19, text: "storage jars" },
+                       { id: 20, text: "drawers" },
+                       { id: 21, text: "boxes" }
+                    ]
                 }
-            });
+            ]
+        });
 
         $("#multiselect").kendoMultiSelect({
-            dataTextField: "Name",
-            dataValueField: "Id"
+            dataTextField: "text",
+            dataValueField: "id"
         });
 
         $("#treeview").kendoTreeView({
@@ -49,9 +66,7 @@
             checkboxes: {
                 checkChildren: true
             },
-            dataSource: dataSource,
-            dataTextField: "Name",
-            dataValueField: "Id",
+            dataSource: myDataSource,
             check: onCheck,
             expand: onExpand
         });
@@ -70,19 +85,19 @@
 
             dialog.kendoDialog({
                 width: "400px",
-                title: "Exames",
+                title: "Categories",
                 visible: false,
                 actions: [
-                    {
-                        text: 'Cancel',
-                        primary: false,
-                        action: onCancelClick
-                    },
-                    {
-                        text: 'Ok',
-                        primary: true,
-                        action: onOkClick
-                    }
+                  {
+                      text: 'Cancel',
+                      primary: false,
+                      action: onCancelClick
+                  },
+                  {
+                      text: 'Ok',
+                      primary: true,
+                      action: onOkClick
+                  }
                 ],
                 close: onClose
             }).data("kendoDialog").open();
@@ -114,8 +129,8 @@
             if (checkedNodes.length > 0) {
                 var array = multiSelect.value().slice();
                 for (var i = 0; i < checkedNodes.length; i++) {
-                    multiData.push({ Name: checkedNodes[i].Name, Id: checkedNodes[i].Id });
-                    array.push(checkedNodes[i].Id.toString());
+                    multiData.push({ text: checkedNodes[i].text, id: checkedNodes[i].id });
+                    array.push(checkedNodes[i].id.toString());
                 }
 
                 multiSelect.dataSource.data(multiData);
@@ -156,7 +171,7 @@
                 node = nodes[i];
 
                 if (node.checked) {
-                    checkedNodes.push({ Name: node.Name, Id: node.Id });
+                    checkedNodes.push({ text: node.text, id: node.id });
                 }
 
                 if (node.hasChildren) {
@@ -183,10 +198,10 @@
             var message;
 
             if (checkedNodes > 0) {
-                message = checkedNodes + " exames selecionados";
+                message = checkedNodes + " categories selected";
             }
             else {
-                message = "0 exames selecionados";
+                message = "0 categories selected";
             }
 
             $("#result").html(message);
@@ -225,14 +240,7 @@
 
                 $(".selectAll").css("visibility", "visible");
             }
-
         });
-
-        $("#salvar").on("click", function () {
-             var multiSelect = $("#multiselect").data("kendoMultiSelect").value();
-             console.log(multiSelect);
-           
-         });
     </script>
     <style>
         html .k-dialog .k-window-titlebar {
@@ -266,11 +274,9 @@
             border: 1px solid #d9d9d9;
         }
 
-        .k-group{
-            padding-top: 5px;
+        #openWindow {
+            min-width: 180px;
         }
-
-        
     </style>
 </div>
 
