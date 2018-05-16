@@ -3,17 +3,16 @@
     ViewBag.Title = "Question";
 }
 <p></p>
-<h3> Cadastro de Questões</h3>
+<h4> Cadastro de Questões</h4>
 
-<div class="container">
-    <div class="col-md-4"></div>
-    <div class="row col-md-8">
+<div class="container border rounded">
+    <div class="col-md-8">
         <form id="form-create">
-            <div class="row form-group">
+            <div class="form-group">
                 @Html.LabelFor(model => model.Description, new { @class = "col-form-label" })
                 @Html.TextAreaFor(model => model.Description, new { @class = " form-control" , id="description"})
             </div>
-            <div class="row form-group">                
+            <div class="form-group">                
                 @Html.TextBoxFor(model => model.Type, new { @class = " form-control", id = "type" })
                 
             </div>
@@ -38,21 +37,16 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="container">
-                    <div class="row">
-                        <form id="form-edit">
-                            <div class="row form-group">
-                                @Html.LabelFor(model => model.Description, new { @class = "col-form-label" })
-                                @Html.TextAreaFor(model => model.Description, new { @class = " form-control", id = "description-edit" })
-                            </div>
-                            <div class="row form-group">
-                                @Html.LabelFor(model => model.Type, new { @class = "col-form-label" })
-                                @Html.TextBoxFor(model => model.Type, new { @class = " form-control", id = "type-edit" })
-                                @Html.HiddenFor(model => model.Id, new { id = "id-edit" })
-                            </div>                            
-                        </form>
+                <form id="form-edit">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Description, new { @class = "col-form-label" })
+                        @Html.TextAreaFor(model => model.Description, new { @class = " form-control", id = "description-edit" })
                     </div>
-                </div>
+                    <div class="form-group">                       
+                        @Html.TextBoxFor(model => model.Type, new { @class = " form-control", id = "type-edit" })
+                        @Html.HiddenFor(model => model.Id, new { id = "id-edit" })
+                    </div>                            
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>
@@ -67,8 +61,8 @@
     $(document).ready(function () {
 
         var data = [
-            { text: "Dissertation", value: "1" },
-            { text: "Multiple Choice", value: "2" }
+            { text: "Dissertação", value: "1" },
+            { text: "Múltipla Escolha", value: "2" }
         ];
 
         // create DropDownList from input HTML element
@@ -109,16 +103,20 @@
                     title: "Tipo",
                     width: 100,
                     values: data
-                },{
-                   template: "<button id='edit' class = 'btn btn-success'>Editar</button>",
-                   attributes: { "class": "text-center", },
-                   width: 100
-                },{
-                   template: "<button id='delete' class = 'btn btn-danger'>Excluir</button>",
-                   attributes: { "class": "text-center", },
-                   width: 100
-                },{
-                    template: "<button id='answer' class = 'btn btn-dark'>Adicionar respostas</button>",
+                }, {
+                    template: "<button id='edit' class = 'btn btn-success'>Editar</button>",
+                    attributes: { "class": "text-center", },
+                    width: 100
+                }, {
+                    template: "<button id='delete' class = 'btn btn-danger'>Excluir</button>",
+                    attributes: { "class": "text-center", },
+                    width: 100
+                }, {
+                    template: "<button id='answer' class = 'btn btn-dark'>Add respostas</button>",
+                    attributes: { "class": "text-center", },
+                    width: 150
+                }, {
+                    template: "<button id='exam' class = 'btn btn-dark'>Add Exames</button>",
                     attributes: { "class": "text-center", },
                     width: 150
                 }]
@@ -172,8 +170,8 @@
             $button = $(this),
             $tr = $button.closest("tr");
         dataItem = grid.dataItem($tr);
-       
-        var url = '@Url.Action("Delete", "Question")';       
+
+        var url = '@Url.Action("Delete", "Question")';
 
         $.ajax({
             url: url + '/' + dataItem.Id
@@ -190,6 +188,17 @@
         dataItem = grid.dataItem($tr);
 
         var url = '@Url.Action("Details", "Answer")';
+        window.location.href = url + '/' + dataItem.Id;
+
+    });
+
+    $("#grid").on("click", "#exam", function () {
+        var grid = $("#grid").data("kendoGrid"),
+            $button = $(this),
+            $tr = $button.closest("tr");
+        dataItem = grid.dataItem($tr);
+
+        var url = '@Url.Action("Details", "Exam")';
         window.location.href = url + '/' + dataItem.Id;
 
     });

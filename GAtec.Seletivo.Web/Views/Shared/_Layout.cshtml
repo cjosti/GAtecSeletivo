@@ -4,18 +4,20 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-
     <script src="~/Content/js/jquery-1.12.3.min.js"></script>
     <script src="~/Content/js/kendo.all.min.js"></script>
     <link href="~/Content/kendo.common.min.css" rel="stylesheet" />
     <link href="~/Content/kendo.default.min.css" rel="stylesheet" />
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
 </head>
 <body>
 
-    <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-        @Html.ActionLink("GAtec Seletivo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-blue-gatec">
+        @Html.ActionLink("Seletivo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

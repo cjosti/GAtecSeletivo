@@ -43,6 +43,14 @@ namespace GAtec.Seletivo.Business
             return true;
         }
 
+        public bool AddExamQuestion(int examId, int questionId)
+        {        
+
+            ExamRepository.AddExamQuestion(examId, questionId);
+
+            return true;
+        }
+
         public bool Update(Exam exam)
         {
             bool Error = false;

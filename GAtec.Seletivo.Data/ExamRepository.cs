@@ -30,6 +30,24 @@ namespace GAtec.Seletivo.Data
 
         }
 
+        public void AddExamQuestion(object ExamId, object QuestionId)
+        {
+            using (var con = new SqlConnection(SeletivoSettings.connectionString))
+            {
+                con.Open();
+
+                using (var cmd = new SqlCommand("INSERT INTO GA_EXAM_QUESTION (EXAMID, QUESTIONID) " +
+                                                "VALUES (@examId, @questionId)", con))
+                {
+                    cmd.Parameters.Add("examId", SqlDbType.Int).Value = ExamId;
+                    cmd.Parameters.Add("questionId", SqlDbType.Int).Value = QuestionId;
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+        }
+
         public void Update(Exam item)
         {
             using (var con = new SqlConnection(SeletivoSettings.connectionString))
@@ -124,6 +142,7 @@ namespace GAtec.Seletivo.Data
             }
             return exams;
         }
+
 
         public IEnumerable<Exam> GetExamByRecruitment(object recruitmentId)
         {

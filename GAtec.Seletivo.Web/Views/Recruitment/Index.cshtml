@@ -4,18 +4,17 @@
     ViewBag.Title = "Recruitment";
 }
 <p></p>
-<h3> Cadastro de Recrutamento</h3>
+<h4 class="text-gatec"> Cadastro de Recrutamento</h4>
 
-<div class="container">
-    <div class="col-md-4"></div>
-        <div class="row col-md-8">
+<div class="container border rounded">
+        <div class="col-md-8">
             <form id="form-create">
-                <div class="row form-group">
+                <div class="form-group">
                     @Html.LabelFor(model => model.Description, new { @class = "col-form-label" })
                     @Html.TextBoxFor(model => model.Description, new { @class = " form-control" })
                 </div>
 
-                <div class="row form-group">
+                <div class="form-group">
                     @Html.LabelFor(model => model.Date, new { @class = "col-form-label" })             
                     @Html.TextBoxFor(model => model.Date, new { @class = "form-control datetimepicker", title = "datetimepicker" })
                 </div>
@@ -41,21 +40,17 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="container">
-                        <div class="row">
-                            <form id="form-edit">
-                                <div class="row form-group">
-                                    @Html.LabelFor(model => model.Description, new { @class = "col-form-label" })
-                                    @Html.TextAreaFor(model => model.Description, new { @class = " form-control", id = "description-edit" })
-                                </div>
-                                <div class="row form-group">
-                                    @Html.LabelFor(model => model.Date, new { @class = "col-form-label", id = "date-edit" })
-                                    @Html.TextBoxFor(model => model.Date, new { @class = "form-control datetimepicker", title = "datetimepicker", id = "date-edit" })
-                                    @Html.HiddenFor(model => model.Id, new { id = "id-edit" })
-                                </div>
-                            </form>
+                    <form id="form-edit">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Description, new { @class = "col-form-label" })
+                            @Html.TextAreaFor(model => model.Description, new { @class = " form-control", id = "description-edit" })
                         </div>
-                    </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Date, new { @class = "col-form-label", id = "date-edit" })
+                            @Html.TextBoxFor(model => model.Date, new { @class = "form-control datetimepicker", title = "datetimepicker", id = "date-edit" })
+                            @Html.HiddenFor(model => model.Id, new { id = "id-edit" })
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>

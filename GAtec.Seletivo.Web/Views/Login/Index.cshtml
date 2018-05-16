@@ -17,67 +17,94 @@
 
 </head>
 <body class="reset">
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">GAtec Seletivo</a>
-        <a class="nav-item nav-link">@Html.ActionLink("Admin", "Index", "Admin", null, new { @class = "nav-link" })</a>
-        <!-- Navbar content -->
+    <nav class="navbar navbar-dark bg-blue-gatec fixed-top">
+        <a class="navbar-brand" href="#">Seletivo</a>
+        <div class="pull-right">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">@Html.ActionLink("Admin", "Index", "Admin", null, new { @class = "nav-link" })</li>
+            </ul>
+        </div>
+            <!-- Navbar content -->
     </nav>
     <div class="bg">
     </div>
     <div class="form-front">
-        @using (Html.BeginForm("Index", "Login", FormMethod.Post))
-        {
-        <div class="col form-group">
-            <div class="col col-md-12"></div>
-            <div class="col col-md-12"></div>
-        </div>
-        <div class="row form-group">
-            <div class="col col-md-1"></div>
-            <div class="col col-md-3">
-                @Html.LabelFor(model => model.Name)
-            </div>
-            <div class="col col-md-5">
-                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Name)
-            </div>
-            <div class="col col-md-2"></div>
-        </div>
+        <div class="container">
+            <div class="card card-container">               
+                <img src="~/Content/images/gatec.png" />
+                <p id="profile-name" class="profile-name-card"></p>
+                @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "form-signin" }))
+                {
 
-        <div class="row form-group">
-            <div class="col col-md-1"></div>
-            <div class="col col-md-3">
-                @Html.LabelFor(model => model.CPF)
-            </div>
-            <div class="col col-md-5">
-                @Html.TextBoxFor(model => model.CPF, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CPF)
-            </div>
-            <div class="col col-md-2"></div>
-        </div>
+                    
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeHolder = "Name" })
+                    @Html.ValidationMessageFor(model => model.Name)
 
-        <div class="row form-group">
-            <div class="col col-md-1"></div>
-            <div class="col col-md-3">
-                @Html.LabelFor(model => model.Email)
-            </div>
-            <div class="col col-md-5">
-                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Email)
-            </div>
-            <div class="col col-md-2"></div>
-        </div>
+                    @Html.TextBoxFor(model => model.CPF, new { @class = "form-control", placeHolder = "CPF" })
+                    @Html.ValidationMessageFor(model => model.CPF)
 
-        <div class="row">
-            <div class="col col-md-2"></div>
-            <div class="col col-md-4">
-                <button type="submit" class="btn btn-success">
-                    Login
-                </button>
-            </div>
-            <div class="col col-md-2"></div>
-        </div>
-        }
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Email address" })
+                    @Html.ValidationMessageFor(model => model.Email)
+            
 
-    </div>
+                    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+                }<!-- /form -->
+                
+            </div><!-- /card-container -->
+        </div><!-- /container -->
+        @*@using (Html.BeginForm("Index", "Login", FormMethod.Post))
+                {
+                <div class="col form-group">
+                    <div class="col col-md-12"></div>
+                    <div class="col col-md-12"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-1"></div>
+                    <div class="col col-md-3">
+                        @Html.LabelFor(model => model.Name)
+                    </div>
+                    <div class="col col-md-5">
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </div>
+                    <div class="col col-md-2"></div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-1"></div>
+                    <div class="col col-md-3">
+                        @Html.LabelFor(model => model.CPF)
+                    </div>
+                    <div class="col col-md-5">
+                        @Html.TextBoxFor(model => model.CPF, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CPF)
+                    </div>
+                    <div class="col col-md-2"></div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-1"></div>
+                    <div class="col col-md-3">
+                        @Html.LabelFor(model => model.Email)
+                    </div>
+                    <div class="col col-md-5">
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+                    <div class="col col-md-2"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col col-md-2"></div>
+                    <div class="col col-md-4">
+                        <button type="submit" class="btn btn-success">
+                            Login
+                        </button>
+                    </div>
+                    <div class="col col-md-2"></div>
+                </div>
+                }*@
+
+            </div>
 </body>
 </html>

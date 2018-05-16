@@ -5,17 +5,20 @@ using System.Web;
 using System.Web.Mvc;
 using GAtec.Seletivo.Domain.Business;
 using GAtec.Seletivo.Domain.Model;
+using GAtec.Seletivo.Web.ViewModel;
 
 namespace GAtec.Seletivo.Web.Controllers
 {
     [AllowAnonymous]
     public class ExamController : Controller
-    { 
+    {
         private IExamService _examService;
+        private IQuestionService _questionService;        
 
-        public ExamController(IExamService examService)
+        public ExamController(IExamService examService, IQuestionService questionService)
         {
             this._examService = examService;
+            this._questionService = questionService;
         }
 
         // GET: Exam
@@ -57,13 +60,6 @@ namespace GAtec.Seletivo.Web.Controllers
             return View("Index");
         }
 
-
-
-        public ActionResult Details()
-        {
-            return View();
-        }
-
         [HttpGet]
         public ActionResult IndexAsync()
         {
@@ -71,5 +67,23 @@ namespace GAtec.Seletivo.Web.Controllers
 
             return Json(exams, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult Details(int id)
+        {
+            if (id == 0)
+                return HttpNotFound();
+
+            Question question = _questionService.Get(id);
+            if (question == null)
+                return HttpNotFound();
+
+            var viewModel = new ExamQuestionViewModel()
+            {
+                Question = question
+            };
+
+            return View("Details", viewModel);
+        }
+
     }
 }

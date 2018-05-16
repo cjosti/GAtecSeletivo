@@ -12,5 +12,8 @@ namespace GAtec.Seletivo.Domain.Repository
         IEnumerable<Exam> GetExamByRecruitment(object id);
 
         IEnumerable<Exam> GetExamList();
+
+        void AddExamQuestion(object ExamId, object QuestionId);
+
     }
 }

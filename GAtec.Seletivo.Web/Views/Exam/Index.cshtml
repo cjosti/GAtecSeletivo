@@ -3,11 +3,10 @@
     ViewBag.Title = "Exam";
 }
 <p></p>
-<h3> Cadastro de exames</h3>
+<h4 class="text-gatec"> Cadastro de exames</h4>
 
-<div class="container">
-    <div class="col-md-4"></div>
-    <div class="row col-md-8">
+<div class="container border rounded">
+    <div class="col-md-6">
         <form id="form-create">
             <div class="row form-group">
                 @Html.LabelFor(model => model.Name, new { @class = "col-form-label" })
@@ -19,8 +18,10 @@
         </form>
     </div>
 </div>
-<p></p>
-<div id="grid"></div>
+    <p></p>
+    <div id="grid"></div>
+
+
 
 <!-- Modal -->
 <div class="modal fade" id="modal-edit"  role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -32,18 +33,14 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="container">
-                    <div class="row">
-                        <form id="form-edit">
-                            <div class="row form-group">
-                                @Html.LabelFor(model => model.Name, new { @class = "col-form-label" })
-                                @Html.TextBoxFor(model => model.Name, new { @class = " form-control", id = "name-edit" })
-                                @Html.HiddenFor(model => model.Id, new { id = "id-edit" })
-                            </div>
-                        </form>
+            <div class="modal-body">               
+                <form id="form-edit">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name)
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "name-edit" })
+                        @Html.HiddenFor(model => model.Id, new { id = "id-edit" })
                     </div>
-                </div>
+                </form>                 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>
@@ -71,14 +68,15 @@
                 hidden: true
             }, {
                 field: "Name",
-                title: "Nome",
-                width: 500
+                title: "Nome"
             },{
                template: "<button id='edit' class = 'btn btn-success'>Editar</button>",
-               attributes: { "class": "text-center",}
+               attributes: { "class": "text-center", },
+               width: 150
             },{
                template: "<button id='delete' class = 'btn btn-danger'>Excluir</button>",
-               attributes: { "class": "text-center", }
+               attributes: { "class": "text-center", },
+               width: 150
             }]
         });
     });
