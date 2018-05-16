@@ -158,7 +158,7 @@ namespace GAtec.Seletivo.Data
             {
                 con.Open();
 
-                query = " SELECT E.ID AS ID_EXAM, E.NAME AS DSC_EXAM, RE.RECRUITID AS ID_RECRUIT  FROM GA_EXAM E ";
+                query = " SELECT E.ID AS ID_EXAM, E.NAME AS DSC_EXAM, RE.RECRUITID AS ID FROM GA_EXAM E ";
                 query = query + "  INNER JOIN GA_RECRUITMENT_EXAM RE ON RE.EXAMID = E.ID";
 
                 using (var cmd = new SqlCommand(query, con))

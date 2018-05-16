@@ -117,6 +117,7 @@ namespace GAtec.Seletivo.Data
                                 Id = reader.GetInt32(0),
                                 Description = reader["Description"].ToString(),
                                 Date = reader.GetDateTime(2)
+                                
 
                             };
 
