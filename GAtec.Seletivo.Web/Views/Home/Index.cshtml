@@ -1,4 +1,4 @@
-﻿@model GAtec.Seletivo.Domain.Model.Recruitment
+﻿@model GAtec.Seletivo.Domain.Model.Exam
 
 @{
     ViewBag.Title = "Home Page";
@@ -28,12 +28,20 @@
                 },
                 pageSize: 20
             },
-            //detailInit: detailInit,
+
+            //groupable: true,
+            filterable: true,
+
+            detailInit: detailInit,
+
             dataBound: function () {
                 this.expandRow(this.tbody.find("tr.k-master-row").first());
             },
+
+
             columns: [{
                 field: "Id",
+                width: 100,
                 hidden: true
             }, {
                 field: "Description",
@@ -44,25 +52,45 @@
         });
     });
 
-    @*function detailInit(e) {
+  function detailInit(e) {
         $("<div/>").appendTo(e.detailCell).kendoGrid({
             dataSource: {
-                read: "@Url.Action("IndexCAsync", "Home")",
-                dataType: "json",
-                type: "GET",
+                transport: {
+                    read: "@Url.Action("IndexCAsync", "Home")",
+                    dataType: "json",
+                    type: "GET"
+                },
+                pageSize: 10,
                 serverPaging: true,
                 serverSorting: true,
-                serverFiltering: true,
-                pageSize: 10,
-                filter: { field: "ID_RECRUIT", operator: "eq", value: e.data.Id }
+                //serverFiltering: true
+                filter: { field: "ExamId", operator: "eq", value: e.data.Id }
             },
-            scrollable: false,
+            scrollable: true,
             sortable: true,
             pageable: true,
             columns: [
-                { field: "ID", width: "110px" }
+                {
+                    field: "Id",
+                    hidden: true
+                },
+                {
+                    field: "Name",
+                    title: "Prova",
+                    width: "300px"
+                },
+                {
+                    field: "ExamId",
+                    hidden: true
+                },
+                {
+                    template: "<button id='doit' class = 'btn btn-primary'>Iniciar</button>",
+                    attributes: { "class": "text-center", },
+                    width: 100
+                }
             ]
         });
-    }*@
+    }
+
 
 </script>
